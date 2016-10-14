@@ -5,3 +5,4 @@ This project is a set of subsequent assignments used to demonstrate and practice
 
 Iteration-01
 ==========================
+Exercise focus on basic work with the attributes and methods.
