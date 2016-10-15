@@ -5,4 +5,4 @@ This project is a set of subsequent assignments used to demonstrate and practice
 
 Iteration-02
 ==========================
-Exercise focus on constructor overloading if conditionals.
+Exercise focus on constructor overloading and if conditionals.
