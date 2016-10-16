@@ -7,7 +7,6 @@
 package cz.muni.fi.pb162.project.demo;
 import cz.muni.fi.pb162.project.geometry.Vertex2D;
 import cz.muni.fi.pb162.project.geometry.Triangle;
-import cz.muni.fi.pb162.project.geometry.Circle;
 
 /**
  * @author xvalchar
@@ -23,16 +22,7 @@ public class Demo {
         Vertex2D pointC = new Vertex2D(100,-100);
         
         Triangle triangle = new Triangle(pointA, pointB, pointC);
-        Circle circle = new Circle(pointA, 2.0);
         
-        System.out.println(triangle.toString());
-        
-        /*
-        System.out.println(triangle.getSubTriangle(0));
-        System.out.println(triangle.getSubTriangle(1));
-        System.out.println(triangle.getSubTriangle(2));
-        System.out.println(circle.toString()); 
-        */
-        
+        System.out.println(triangle.toString()); 
     }
 }

@@ -17,6 +17,12 @@ public class Triangle {
     private Vertex2D pointBC;
     private Vertex2D pointAC;
     
+    private Triangle subTriangleA = null;
+    private Triangle subTriangleB = null;
+    private Triangle subTriangleC = null;
+    
+    private boolean divideTriangle = false;
+    
     /**
      * Constructor
      * 
@@ -48,7 +54,7 @@ public class Triangle {
      * @return String representation of this object
      */
     public String toString() {
-        if(pointA != null && pointB != null && pointC != null) {
+        if(getVertexA() != null && getVertexB() != null && getVertexC() != null) {
             return("Triangle: vertices=" + pointA.toString() + " " + pointB.toString() + " " + pointC.toString());
         }
         else {
@@ -62,7 +68,8 @@ public class Triangle {
      * @return Bool according to pointAB, pointBC and pointAC is null or not
      */
     public boolean isDivided() {
-        return(pointAB == null && pointBC == null && pointAC == null);
+        return(divideTriangle);
+        //return(subTriangleA == null && subTriangleB == null && subTriangleC == null ); // different?
     }
     
     /**
@@ -71,21 +78,17 @@ public class Triangle {
      * @param i is integer between 0-2
      * @return points of triangle or null 
      */
-    public String getSubTriangle(int i) {
+    public Triangle getSubTriangle(int i) {
         if(divide()) {
             switch(i) {
-                case 0: return("Triangle: verticeA=" + pointA.toString() + " " 
-                                + pointAB.toString() + " " + pointAC.toString());
-                case 1: return("Triangle: verticeB=" + pointAB.toString() + " "
-                                + pointB.toString() + " " + pointBC.toString());
-                case 2: return("Triangle: verticeC=" + pointAC.toString() + " "
-                                + pointC.toString() + " " + pointBC.toString());
+                case 0: return(subTriangleA);
+                case 1: return(subTriangleB);
+                case 2: return(subTriangleC);
                 default: return null;
             }
         }
-        else {
-            return null;
-        }
+        
+        return null;
     }
  
     /**
@@ -96,13 +99,19 @@ public class Triangle {
      */ 
     public boolean divide() {
         if(isDivided()) {
-            this.pointAB = new Vertex2D(((pointA.getX() + pointB.getX()) / 2), ((pointA.getY() + pointB.getY()) / 2));
-            this.pointBC = new Vertex2D(((pointB.getX() + pointC.getX()) / 2), ((pointB.getY() + pointC.getY()) / 2));
-            this.pointAC = new Vertex2D(((pointA.getX() + pointC.getX()) / 2), ((pointA.getY() + pointC.getY()) / 2));
-            return true; 
+           return false;
         }
         else {
-            return false;
+            pointAB = new Vertex2D(((pointA.getX() + pointB.getX()) / 2), ((pointA.getY() + pointB.getY()) / 2));
+            pointBC = new Vertex2D(((pointB.getX() + pointC.getX()) / 2), ((pointB.getY() + pointC.getY()) / 2));
+            pointAC = new Vertex2D(((pointA.getX() + pointC.getX()) / 2), ((pointA.getY() + pointC.getY()) / 2));
+            
+            subTriangleA = new Triangle(pointA, pointAB, pointAC);
+            subTriangleB = new Triangle(pointAB, pointB, pointBC);
+            subTriangleC = new Triangle(pointAC, pointC, pointBC);
+            
+            divideTriangle = true;
+            return true; 
         }
     } 
     
@@ -116,7 +125,7 @@ public class Triangle {
         double d2 = pointA.distance(pointC);
         double d3 = pointB.distance(pointC);
         
-        if((Math.abs(d1 - d2) < 0.001 ) && (Math.abs(d2 - d3) < 0.001 )) {
+        if((Math.abs(d1 - d2) < 0.001 ) && (Math.abs(d1 - d3) < 0.001) &&(Math.abs(d2 - d3) < 0.001 )) {
             return true;
         }
         else {
@@ -124,4 +133,3 @@ public class Triangle {
         }
     }
 }
-
