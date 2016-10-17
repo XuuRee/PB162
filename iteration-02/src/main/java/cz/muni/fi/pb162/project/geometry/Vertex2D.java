@@ -48,10 +48,8 @@ public class Vertex2D {
     public double distance(Vertex2D point) {
         if(point == null) { 
             return(-1.0); 
-        }
-        else {
+        } else {
             return(Math.sqrt((Math.pow(x - point.getX(),2)) + Math.pow(y - point.getY(),2)));
         }
-    }
-    
+    }   
 }

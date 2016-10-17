@@ -22,6 +22,7 @@ public class Triangle {
     private Triangle subTriangleC = null;
     
     private boolean divideTriangle = false;
+    private int depth;
     
     /**
      * Constructor
@@ -34,6 +35,19 @@ public class Triangle {
         this.pointA = pointA;
         this.pointB = pointB;
         this.pointC = pointC;
+    }
+    
+    /**
+     * Overloaded constructor 
+     * @param pointA point of Triangle
+     * @param pointB point of Triangle
+     * @param pointC point of Triangle
+     * @param depth depth of Sierpinski triangle
+     */
+    public Triangle(Vertex2D pointA, Vertex2D pointB, Vertex2D pointC, int depth) {
+        this(pointA, pointB, pointC);
+        this.depth = depth;
+        divide(depth - 1);
     }
     
     public Vertex2D getVertexA() {
@@ -56,8 +70,7 @@ public class Triangle {
     public String toString() {
         if(getVertexA() != null && getVertexB() != null && getVertexC() != null) {
             return("Triangle: vertices=" + pointA.toString() + " " + pointB.toString() + " " + pointC.toString());
-        }
-        else {
+        } else {
             return("INVALID TRIANGLE");
         }
     }
@@ -79,41 +92,56 @@ public class Triangle {
      * @return points of triangle or null 
      */
     public Triangle getSubTriangle(int i) {
-        if(divide()) {
-            switch(i) {
-                case 0: return(subTriangleA);
-                case 1: return(subTriangleB);
-                case 2: return(subTriangleC);
-                default: return null;
-            }
-        }
-        
-        return null;
+        switch(i) {
+            case 0: return(subTriangleA);
+            case 1: return(subTriangleB);
+            case 2: return(subTriangleC);
+            default: return null;
+        }   
     }
  
     /**
-     * Method create new points for  
+     * Divide triangle
      * 
-     * @return The boolean value true if triangle was not divided before and 
-     *         creating new points was successful
+     * @return The boolean value true if triangle was divided 
      */ 
     public boolean divide() {
-        if(isDivided()) {
-           return false;
+        if (depth < 1) {
+            return false;
         }
-        else {
-            pointAB = new Vertex2D(((pointA.getX() + pointB.getX()) / 2), ((pointA.getY() + pointB.getY()) / 2));
-            pointBC = new Vertex2D(((pointB.getX() + pointC.getX()) / 2), ((pointB.getY() + pointC.getY()) / 2));
-            pointAC = new Vertex2D(((pointA.getX() + pointC.getX()) / 2), ((pointA.getY() + pointC.getY()) / 2));
-            
-            subTriangleA = new Triangle(pointA, pointAB, pointAC);
-            subTriangleB = new Triangle(pointAB, pointB, pointBC);
-            subTriangleC = new Triangle(pointAC, pointC, pointBC);
-            
-            divideTriangle = true;
-            return true; 
-        }
+        
+        divide(depth);
+        
+        return true;
     } 
+    
+    /**
+     * Divide triangle with known depth  
+     * 
+     * @param depth number of subtriangles
+     * @return true if depth is bigger then 0 (recursion)
+     */
+    public boolean divide(int depth) {
+        if (depth < 1) {
+            return false;
+        }
+ 
+        pointAB = new Vertex2D(((pointA.getX() + pointB.getX()) / 2), ((pointA.getY() + pointB.getY()) / 2));
+        pointBC = new Vertex2D(((pointB.getX() + pointC.getX()) / 2), ((pointB.getY() + pointC.getY()) / 2));
+        pointAC = new Vertex2D(((pointA.getX() + pointC.getX()) / 2), ((pointA.getY() + pointC.getY()) / 2));
+            
+        subTriangleA = new Triangle(pointA, pointAB, pointAC);
+        subTriangleA.divide(depth - 1);
+        
+        subTriangleB = new Triangle(pointAB, pointB, pointBC);
+        subTriangleB.divide(depth - 1);
+        
+        subTriangleC = new Triangle(pointAC, pointBC, pointC); //ac c bc
+        subTriangleC.divide(depth - 1);
+            
+        divideTriangle = true;
+        return true; 
+    }
     
     /**
      * Method check if triangle is equilateral  
@@ -125,10 +153,9 @@ public class Triangle {
         double d2 = pointA.distance(pointC);
         double d3 = pointB.distance(pointC);
         
-        if((Math.abs(d1 - d2) < 0.001 ) && (Math.abs(d1 - d3) < 0.001) &&(Math.abs(d2 - d3) < 0.001 )) {
+        if(Math.abs(d1 - d2) < 0.001 && Math.abs(d1 - d3) < 0.001 && Math.abs(d2 - d3) < 0.001) {
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }

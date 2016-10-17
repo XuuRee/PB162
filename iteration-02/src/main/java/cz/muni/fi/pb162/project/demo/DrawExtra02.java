@@ -13,7 +13,7 @@ import cz.muni.fi.pb162.project.geometry.Vertex2D;
  */
 
 public class DrawExtra02 extends Draw {
-/*
+
     @Override
     public boolean paintTriangle(Triangle triangle) {
         boolean ret = super.paintTriangle(triangle);
@@ -76,5 +76,5 @@ public class DrawExtra02 extends Draw {
         
         canvas.startPainting();
     }
-    */
+   
 }

@@ -7,7 +7,7 @@
 package cz.muni.fi.pb162.project.demo;
 import cz.muni.fi.pb162.project.geometry.Vertex2D;
 import cz.muni.fi.pb162.project.geometry.Triangle;
-import cz.muni.fi.pb162.project.geometry.Circle;
+// import cz.muni.fi.pb162.project.geometry.Circle;
 
 /**
  * @author xvalchar
@@ -24,6 +24,7 @@ public class Demo {
         
         Triangle triangle = new Triangle(pointA, pointB, pointC);
         
-        System.out.println(triangle.toString()); 
+        System.out.println(triangle.toString());
     }
 }
+
