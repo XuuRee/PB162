@@ -8,6 +8,7 @@ package cz.muni.fi.pb162.project.demo;
 import cz.muni.fi.pb162.project.geometry.Vertex2D;
 import cz.muni.fi.pb162.project.geometry.Triangle;
 import cz.muni.fi.pb162.project.geometry.Circle;
+import static cz.muni.fi.pb162.project.geometry.Gauger.printMeasurement;
 
 /**
  * @author xvalchar
@@ -25,12 +26,18 @@ public class Demo {
         Triangle triangle = new Triangle(pointA, pointB, pointC);
         Circle circle = new Circle(pointA, 1.35);
         
-        System.out.println(triangle.toString());
-        
+        System.out.println("CIRCLE");
+        System.out.println(circle.toString());
         System.out.println("Length: " + circle.getLength());
         System.out.println("Area: " + circle.getArea());
         System.out.println("Height: " + circle.getHeight());
         System.out.println("Width: " + circle.getWidth());
+        System.out.println("TRIANGLE");
+        System.out.println(triangle.toString());
+        System.out.println("Length: " + triangle.getLength());
+        System.out.println("Area: " + triangle.getArea());
+        System.out.println("Height: " + triangle.getHeight());
+        System.out.println("Width: " + triangle.getWidth());
     }
 }
 

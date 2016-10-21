@@ -154,11 +154,7 @@ public class Triangle implements Solid {
         double d2 = pointA.distance(pointC);
         double d3 = pointB.distance(pointC);
         
-        if(Math.abs(d1 - d2) < EPSILON && Math.abs(d1 - d3) < EPSILON && Math.abs(d2 - d3) < EPSILON) {
-            return true;
-        } else {
-            return false;
-        }
+        return(Math.abs(d1 - d2) < EPSILON && Math.abs(d1 - d3) < EPSILON && (Math.abs(d2 - d3) < EPSILON));
     }
 
     @Override
