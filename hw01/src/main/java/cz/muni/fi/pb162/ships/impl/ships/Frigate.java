@@ -43,6 +43,10 @@ public class Frigate implements Ship {
         return(width);
     }
     
+    /**
+     * Should not be here!
+     * @return armor of the ship
+     */
     public ArmorState getArmor() {
         return(armor);
     }

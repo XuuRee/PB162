@@ -17,6 +17,10 @@ public class ScoutingShip implements Ship {
     private final int width;
     private final ArmorState armor;
     
+    private int latitude; 
+    private int longitude; 
+    private Direction direction;
+    
     /**
      * Parameterless Constructor
      */
@@ -27,6 +31,7 @@ public class ScoutingShip implements Ship {
     }
 
     /**
+     * Should not be here!
      * @return String location of point
      */
     public String toString() {
@@ -43,41 +48,51 @@ public class ScoutingShip implements Ship {
         return(width);
     }
 
+    /**
+     * Should not be here!
+     * @return armor of the ship
+     */
     public ArmorState getArmor() {
         return(armor);
     }
     
-    //--------------------------------------------------------------------------
-    
     @Override
     public void setBoardPlacement(int latitude, int longitude, Direction direction) {
-       throw new UnsupportedOperationException("Not supported yet."); 
-        //To change body of generated methods, choose Tools | Templates.
+       this.latitude = latitude;
+       this.longitude = longitude;
+       this.direction = direction;
     }
 
+    //--------------------------------------------------------------------------
+    
     @Override
     public boolean isPlacedOnBoard() {
         throw new UnsupportedOperationException("Not supported yet."); 
         //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public int getLongitude() {
-        throw new UnsupportedOperationException("Not supported yet."); 
-        //To change body of generated methods, choose Tools | Templates.
-    }
-
+    //--------------------------------------------------------------------------
+    
     @Override
     public int getLatitude() {
-        throw new UnsupportedOperationException("Not supported yet."); 
-        //To change body of generated methods, choose Tools | Templates.
+        return(latitude);
+    }
+    
+    @Override
+    public int getLongitude() {
+        return(longitude);
     }
 
     @Override
     public Direction getDirection() {
-        throw new UnsupportedOperationException("Not supported yet."); 
-        //To change body of generated methods, choose Tools | Templates.
+        return(direction);
     }
+    
+    public String toStringAnotherInfo() {
+        return("LLD -> Latitude: " + getLatitude() + " " + "Longitude: " + getLongitude() + " " + "Direction: " + getDirection());
+    }
+    
+    //--------------------------------------------------------------------------
 
     @Override
     public ArmorState getArmor(int x, int y) {

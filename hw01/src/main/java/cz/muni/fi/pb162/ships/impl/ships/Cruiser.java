@@ -43,10 +43,16 @@ public class Cruiser implements Ship {
         return(width);
     }
     
+    /**
+     * Should not be here!
+     * @return armor of the ship
+     */
     public ArmorState getArmor() {
         return(armor);
     }
 
+    //--------------------------------------------------------------------------
+    
     @Override
     public void setBoardPlacement(int latitude, int longitude, Direction direction) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

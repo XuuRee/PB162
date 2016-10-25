@@ -6,6 +6,9 @@
 package cz.muni.fi.pb162.ships.impl.ships;
 //import cz.muni.fi.pb162.ships.Ship;
 
+import cz.muni.fi.pb162.ships.Direction;
+
+
 /**
  * @author xvalchar
  */
@@ -18,8 +21,12 @@ public class Demo {
         ScoutingShip scoutingShip = new ScoutingShip();
         Frigate frigateShip = new Frigate();
         Cruiser cruiserShip = new Cruiser();
+        
+        scoutingShip.setBoardPlacement(4, 3, Direction.NORTH);
+        
         System.out.println(scoutingShip.toString());
         System.out.println(frigateShip.toString());
         System.out.println(cruiserShip.toString());
+        System.out.println(scoutingShip.toStringAnotherInfo());
     }
 }
