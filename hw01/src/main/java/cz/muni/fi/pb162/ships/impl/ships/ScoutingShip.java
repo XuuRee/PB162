@@ -60,7 +60,6 @@ public class ScoutingShip implements Ship {
     public void setBoardPlacement(int latitude, int longitude, Direction direction) {
        /* 
         * Should be different kind of setBoardPlacemenet;
-        * 
         */
        this.latitude = latitude;
        this.longitude = longitude;
