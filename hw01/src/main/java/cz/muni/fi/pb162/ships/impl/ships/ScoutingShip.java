@@ -13,7 +13,7 @@ import cz.muni.fi.pb162.ships.Ship;
  * @author xvalchar
  */
 public class ScoutingShip implements Ship {
-    private final int length;                                                   // !!! Can be final?
+    private final int length;                                                   // final?
     private final int width;
     private final ArmorState armor;
     
@@ -58,6 +58,10 @@ public class ScoutingShip implements Ship {
     
     @Override
     public void setBoardPlacement(int latitude, int longitude, Direction direction) {
+       /* 
+        * Should be different kind of setBoardPlacemenet;
+        * 
+        */
        this.latitude = latitude;
        this.longitude = longitude;
        this.direction = direction;
@@ -88,6 +92,10 @@ public class ScoutingShip implements Ship {
         return(direction);
     }
     
+    /**
+     * Should not be here!
+     * @return armor of the ship
+     */
     public String toStringAnotherInfo() {
         return("LLD -> Latitude: " + getLatitude() + " " + "Longitude: " + getLongitude() + " " + "Direction: " + getDirection());
     }
@@ -96,8 +104,15 @@ public class ScoutingShip implements Ship {
 
     @Override
     public ArmorState getArmor(int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet."); 
-        //To change body of generated methods, choose Tools | Templates.
+        /**
+         * Problem is: we are talking about armor for one specific cell;
+         * I am returning armor state for all ship  ( ! longitude, latitude -> length, width);
+         */
+        if((x > 0 && x < getWidth() - 1) && (y > 0 && y < getLength() - 1)) {
+            return(armor);
+        }
+        
+        return null;
     }
 
     @Override
