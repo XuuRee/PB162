@@ -17,10 +17,20 @@ public class Frigate implements Ship {
     private final int width;
     private final ArmorState armor;
     
-    public Frigate() {                                                          // !!! this is bad, probably
+    /**
+     * Parameterless Constructor
+     */
+    public Frigate() {                                                         
         this.length = 5;
         this.width = 1;
-        this.armor = SOUND;
+        this.armor = ArmorState.SOUND;
+    }
+    
+    /**
+     * @return String location of point
+     */
+    public String toString() {
+        return("Constructor FrigateShip -> Length: " + getLength() + " " + "Width: " + getWidth() + " " + "Armor: " + getArmor());
     }
     
     @Override
@@ -32,45 +42,59 @@ public class Frigate implements Ship {
     public int getWidth() {
         return(width);
     }
+    
+    public ArmorState getArmor() {
+        return(armor);
+    }
 
+    //--------------------------------------------------------------------------
+    
     @Override
     public void setBoardPlacement(int latitude, int longitude, Direction direction) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); 
+        //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public boolean isPlacedOnBoard() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); 
+        //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public int getLongitude() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); 
+        //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public int getLatitude() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); 
+        //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public Direction getDirection() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); 
+        //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public ArmorState getArmor(int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); 
+        //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public ArmorState hit(int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); 
+        //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public boolean isDestroyed() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        throw new UnsupportedOperationException("Not supported yet."); 
+        //To change body of generated methods, choose Tools | Templates.
     }
     
 }

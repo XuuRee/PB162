@@ -4,16 +4,22 @@
  * and open the template in the editor.
  */
 package cz.muni.fi.pb162.ships.impl.ships;
+//import cz.muni.fi.pb162.ships.Ship;
 
 /**
  * @author xvalchar
  */
 public class Demo {
     /**
-     * Demo class, play with Triangle, Vertex2D and Circle
+     * Demo class, play with classes and other shit.
      * @param args argument is type of string[]
      */
     public static void main(String[] args) {
-        System.out.println("Hello, world!");
+        ScoutingShip scoutingShip = new ScoutingShip();
+        Frigate frigateShip = new Frigate();
+        Cruiser cruiserShip = new Cruiser();
+        System.out.println(scoutingShip.toString());
+        System.out.println(frigateShip.toString());
+        System.out.println(cruiserShip.toString());
     }
 }

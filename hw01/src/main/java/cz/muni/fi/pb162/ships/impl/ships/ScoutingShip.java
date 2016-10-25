@@ -17,20 +17,22 @@ public class ScoutingShip implements Ship {
     private final int width;
     private final ArmorState armor;
     
-    /*
-    public void ScoutingShip(int length, int width, ArmorState armor) {
-        this.length = length;
-        this.width = width;
-        this.armor = SOUND;
-    }
-    */
-    
-    public ScoutingShip(ArmorState armor) {                                     // !!! this is bad, probably
+    /**
+     * Parameterless Constructor
+     */
+    public ScoutingShip() {                                     
         this.length = 3;
         this.width = 1;
-        this.armor = armor;
+        this.armor = ArmorState.SOUND;
     }
 
+    /**
+     * @return String location of point
+     */
+    public String toString() {
+        return("Constructor ScoutingShip -> Length: " + getLength() + " " + "Width: " + getWidth() + " " + "Armor: " + getArmor());
+    }
+    
     @Override
     public int getLength() {
         return(length);
@@ -41,9 +43,16 @@ public class ScoutingShip implements Ship {
         return(width);
     }
 
+    public ArmorState getArmor() {
+        return(armor);
+    }
+    
+    //--------------------------------------------------------------------------
+    
     @Override
     public void setBoardPlacement(int latitude, int longitude, Direction direction) {
-       
+       throw new UnsupportedOperationException("Not supported yet."); 
+        //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
