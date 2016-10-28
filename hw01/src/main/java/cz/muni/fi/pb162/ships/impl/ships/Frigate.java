@@ -13,9 +13,13 @@ import cz.muni.fi.pb162.ships.Ship;
  * @author xvalchar
  */
 public class Frigate implements Ship {
-    private final int length;                                                   // !!! Can be final?
+    private final int length;                                                   
     private final int width;
-    private final ArmorState armor;
+    private final ArmorState[] armor;
+    
+    private int latitude; 
+    private int longitude; 
+    private Direction direction;
     
     /**
      * Parameterless Constructor
@@ -23,16 +27,11 @@ public class Frigate implements Ship {
     public Frigate() {                                                         
         this.length = 5;
         this.width = 1;
-        this.armor = ArmorState.SOUND;
+        this.armor = new ArmorState[] {ArmorState.SOUND, ArmorState.SOUND, 
+                                       ArmorState.SOUND, ArmorState.SOUND, 
+                                       ArmorState.SOUND};
     }
-    
-    /**
-     * @return String location of point
-     */
-    public String toString() {
-        return("Constructor FrigateShip -> Length: " + getLength() + " " + "Width: " + getWidth() + " " + "Armor: " + getArmor());
-    }
-    
+        
     @Override
     public int getLength() {
         return length;
@@ -43,46 +42,192 @@ public class Frigate implements Ship {
         return width;
     }
     
-    /**
-     * Should not be here!
-     * @return armor of the ship
-     */
-    public ArmorState getArmor() {
-        return armor;
-    }
-
-    //--------------------------------------------------------------------------
-    
     @Override
     public void setBoardPlacement(int latitude, int longitude, Direction direction) {
-        throw new UnsupportedOperationException("Not supported yet."); 
-        //To change body of generated methods, choose Tools | Templates.
+        this.latitude = latitude; 
+        this.longitude = longitude;
+        this.direction = direction;
+
     }
 
     @Override
     public boolean isPlacedOnBoard() {
-        throw new UnsupportedOperationException("Not supported yet."); 
-        //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int getLongitude() {
-        throw new UnsupportedOperationException("Not supported yet."); 
-        //To change body of generated methods, choose Tools | Templates.
+        if(getLatitude() >= 0 && getLongitude() >= 0) {
+            switch(getDirection()) {
+                case EAST:
+                    return true;
+                case SOUTH:
+                    if(getLongitude() < getLength()) {
+                        return false;
+                    }
+                    return true;
+                case WEST:
+                    if(getLatitude() < getLength()) {
+                        return false;
+                    }
+                    return true;
+                case NORTH: 
+                    return true;
+                default: return false;
+            }
+        }
+        return false;
     }
 
     @Override
     public int getLatitude() {
-        throw new UnsupportedOperationException("Not supported yet."); 
-        //To change body of generated methods, choose Tools | Templates.
+        return latitude;
+    }
+    
+    @Override
+    public int getLongitude() {
+        return longitude;
     }
 
     @Override
     public Direction getDirection() {
-        throw new UnsupportedOperationException("Not supported yet."); 
-        //To change body of generated methods, choose Tools | Templates.
+        return direction;
     }
 
+        @Override
+    public ArmorState getArmor(int x, int y) {
+        switch(getDirection()) {
+            case EAST:
+                if(y == getLongitude()) {
+                    for(int i = 0; i < getLength(); i++) {
+                        if(x == (getLatitude() + i)) {
+                            return armor[i];
+                        }
+                    }   
+                } 
+                return null;
+            
+            case SOUTH:
+                if(x == getLatitude()) {
+                    for(int i = 0; i < getLength(); i++) {
+                        if(y == (getLongitude() - i)) {
+                            return armor[i];
+                        }
+                    }   
+                }
+                return null;
+            
+            case WEST:
+                if(y == getLongitude()) {
+                    for(int i = 0; i < getLength(); i++) {
+                        if(x == (getLatitude() - i)) {
+                            return armor[i];
+                        }
+                    }   
+                }
+                return null;
+            
+            case NORTH:
+                if(x == getLatitude()) {
+                    for(int i = 0; i < getLength(); i++) {
+                        if(y == (getLongitude() + i)) {
+                            return armor[i];
+                        }
+                    }   
+                }
+                return null;
+            
+            default:
+                return null;
+        }
+    }
+    
+    @Override
+    public ArmorState hit(int x, int y) {
+        switch(getDirection()) {
+            case EAST:
+                if(y == getLongitude()) {
+                    for(int i = 0; i < getLength(); i++) {
+                        if(x == (getLatitude() + i)) {
+                            return armor[i] = ArmorState.DESTROYED;
+                        }
+                    }   
+                } 
+                return null;
+            
+            case SOUTH:
+                if(x == getLatitude()) {
+                    for(int i = 0; i < getLength(); i++) {
+                        if(y == (getLongitude() - i)) {
+                            return armor[i] = ArmorState.DESTROYED;
+                        }
+                    }   
+                }
+                return null;
+            
+            case WEST:
+                if(y == getLongitude()) {
+                    for(int i = 0; i < getLength(); i++) {
+                        if(x == (getLatitude() - i)) {
+                            return armor[i] = ArmorState.DESTROYED;
+                        }
+                    }   
+                }
+                return null;
+            
+            case NORTH:
+                if(x == getLatitude()) {
+                    for(int i = 0; i < getLength(); i++) {
+                        if(y == (getLongitude() + i)) {
+                            return armor[i] = ArmorState.DESTROYED;
+                        }
+                    }   
+                }
+                return null;
+            
+            default:
+                return null;
+        }
+    }
+
+    @Override
+    public boolean isDestroyed() {
+        boolean destroy = true;
+        
+        switch(getDirection()) {
+            case EAST:
+                for(int i = 0; i < getLength(); i++) {
+                    if( getArmor(getLatitude() + i, getLongitude())!= ArmorState.DESTROYED ) {
+                        destroy = false;
+                    }
+                }
+                return destroy;
+            
+            case SOUTH:
+                for(int i = 0; i < getLength(); i++) {
+                    if( getArmor(getLatitude(), getLongitude() - i)!= ArmorState.DESTROYED ) {
+                        destroy = false;
+                    }
+                }
+                return destroy;
+            
+            case WEST:
+                for(int i = 0; i < getLength(); i++) {
+                    if( getArmor(getLatitude() - i, getLongitude())!= ArmorState.DESTROYED ) {
+                        destroy = false;
+                    }
+                }
+                return destroy;
+                
+            case NORTH:
+                for(int i = 0; i < getLength(); i++) {
+                    if( getArmor(getLatitude(), getLongitude() + i)!= ArmorState.DESTROYED ) {
+                        destroy = false;
+                    }
+                }
+                return destroy;
+            
+            default:
+                return destroy;
+        }
+    }    
+    
+    /*
     @Override
     public ArmorState getArmor(int x, int y) {
         throw new UnsupportedOperationException("Not supported yet."); 
@@ -100,5 +245,5 @@ public class Frigate implements Ship {
         throw new UnsupportedOperationException("Not supported yet."); 
         //To change body of generated methods, choose Tools | Templates.
     }
-    
+    */
 }

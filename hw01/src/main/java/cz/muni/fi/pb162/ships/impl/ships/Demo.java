@@ -20,19 +20,21 @@ public class Demo {
     public static void main(String[] args) {
         ScoutingShip scoutingShip = new ScoutingShip();
         
-        scoutingShip.setBoardPlacement(5, 3, Direction.WEST);
-        
-        System.out.println(scoutingShip.getArmor(5,3));
-        System.out.println(scoutingShip.getArmor(4,3));
-        System.out.println(scoutingShip.getArmor(3,3));
-        System.out.println(scoutingShip.hit(5,3));
-        System.out.println(scoutingShip.hit(4,3));
-        System.out.println(scoutingShip.hit(3,3));
-        
-        if(scoutingShip.isDestroyed()) {
-            System.out.println("Ship is destroyed!");
+        scoutingShip.setBoardPlacement(0, 0, Direction.NORTH);
+        if(scoutingShip.isPlacedOnBoard()) {
+            System.out.println(scoutingShip.getArmor(1,2));
+            System.out.println(scoutingShip.getArmor(3,1));
+            System.out.println(scoutingShip.getArmor(3,2));
+            System.out.println(scoutingShip.hit(0,0));
+            System.out.println(scoutingShip.hit(0,1));
+            System.out.println(scoutingShip.hit(0,2));
+            if(scoutingShip.isDestroyed()) {
+                System.out.println("Ship is destroyed!");
+            } else {
+                System.out.println("Ship is not destroyed!");
+            }
         } else {
-            System.out.println("Ship is not destroyed!");
+            System.out.println("Lod neni umistena na plose!");
         }
     }
 }

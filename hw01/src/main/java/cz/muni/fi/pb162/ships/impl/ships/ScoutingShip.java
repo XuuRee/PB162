@@ -10,10 +10,21 @@ import cz.muni.fi.pb162.ships.Direction;
 import cz.muni.fi.pb162.ships.Ship;
 
 /**
+ *    What change in project?
+ * 
+ * 1. VYPOCET PRO JEDNOTLIVE SOURADNICE EAST, SOUTH, WEST, NORTH
+ *    BY MELA RESIT NOVA METODA -> VYHNOUT SE OPAKOVANI KODU ATD
+ * 2. NENI NUTNE POCITAT VZDY JEDNOTLIVE SOURADNICE... ULOZIT DO
+ *    POLE. NAPR.: {1,2,3} ?
+ * 3. U SMERU EAST A NORTH JE TREBA UDELAT HRANICI PRO X, RESP.
+ *    PRO Y...
+ * 4. PROBLEM MUZE BYT U SOURADNIC - JA SE DIVAM NA POHLED Z 
+ *    HRACI PLOCHY... TESTY MOHOU CHTIT NA PARAMETRECH X a Y VZDY
+ *    SOURADNICE DANE LODI!
+ * 
  * @author xvalchar
  */
-public class ScoutingShip implements Ship 
-{
+public class ScoutingShip implements Ship {
     private final int length;                                                   
     private final int width;
     private final ArmorState[] armor;
@@ -50,8 +61,26 @@ public class ScoutingShip implements Ship
     
     @Override
     public boolean isPlacedOnBoard() {
-        throw new UnsupportedOperationException("Not supported yet."); 
-        //To change body of generated methods, choose Tools | Templates.
+        if(getLatitude() >= 0 && getLongitude() >= 0) {
+            switch(getDirection()) {
+                case EAST:
+                    return true;
+                case SOUTH:
+                    if(getLongitude() < getLength()) {
+                        return false;
+                    }
+                    return true;
+                case WEST:
+                    if(getLatitude() < getLength()) {
+                        return false;
+                    }
+                    return true;
+                case NORTH: 
+                    return true;
+                default: return false;
+            }
+        }
+        return false;
     }
     
     @Override
@@ -168,7 +197,8 @@ public class ScoutingShip implements Ship
     @Override
     public boolean isDestroyed() {
         boolean destroy = true;
-         switch(getDirection()) {
+        
+        switch(getDirection()) {
             case EAST:
                 for(int i = 0; i < getLength(); i++) {
                     if( getArmor(getLatitude() + i, getLongitude())!= ArmorState.DESTROYED ) {

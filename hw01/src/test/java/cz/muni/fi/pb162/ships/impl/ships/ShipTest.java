@@ -111,7 +111,4 @@ public abstract class ShipTest {
             ship.hit(x, y);
         }
     }
-
-
-
 }
