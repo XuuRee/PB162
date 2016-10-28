@@ -35,12 +35,12 @@ public class Frigate implements Ship {
     
     @Override
     public int getLength() {
-        return(length);
+        return length;
     }
 
     @Override
     public int getWidth() {
-        return(width);
+        return width;
     }
     
     /**
@@ -48,7 +48,7 @@ public class Frigate implements Ship {
      * @return armor of the ship
      */
     public ArmorState getArmor() {
-        return(armor);
+        return armor;
     }
 
     //--------------------------------------------------------------------------

@@ -22,11 +22,12 @@ public class Demo {
         Frigate frigateShip = new Frigate();
         Cruiser cruiserShip = new Cruiser();
         
-        scoutingShip.setBoardPlacement(4, 3, Direction.NORTH);
+        scoutingShip.setBoardPlacement(5, 3, Direction.WEST);
         
-        System.out.println(scoutingShip.toString());
         System.out.println(frigateShip.toString());
         System.out.println(cruiserShip.toString());
-        System.out.println(scoutingShip.toStringAnotherInfo());
+        System.out.println(scoutingShip.getArmor(5,3));
+        System.out.println(scoutingShip.getArmor(4,3));
+        System.out.println(scoutingShip.getArmor(3,3));
     }
 }

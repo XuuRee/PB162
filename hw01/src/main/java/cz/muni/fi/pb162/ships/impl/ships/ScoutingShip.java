@@ -12,10 +12,11 @@ import cz.muni.fi.pb162.ships.Ship;
 /**
  * @author xvalchar
  */
-public class ScoutingShip implements Ship {
-    private final int length;                                                   // final?
+public class ScoutingShip implements Ship 
+{
+    private final int length;                                                   
     private final int width;
-    private final ArmorState armor;
+    private final ArmorState[] armor;
     
     private int latitude; 
     private int longitude; 
@@ -27,93 +28,107 @@ public class ScoutingShip implements Ship {
     public ScoutingShip() {                                     
         this.length = 3;
         this.width = 1;
-        this.armor = ArmorState.SOUND;
-    }
-
-    /**
-     * Should not be here!
-     * @return String location of point
-     */
-    public String toString() {
-        return("Constructor ScoutingShip -> Length: " + getLength() + " " + "Width: " + getWidth() + " " + "Armor: " + getArmor());
+        this.armor = new ArmorState[] {ArmorState.DESTROYED, ArmorState.REINFORCED, ArmorState.SOUND};
     }
     
     @Override
     public int getLength() {
-        return(length);
+        return length;
     }
     
     @Override
     public int getWidth() {
-        return(width);
-    }
-
-    /**
-     * Should not be here!
-     * @return armor of the ship
-     */
-    public ArmorState getArmor() {
-        return(armor);
+        return width;
     }
     
+    /** 
+     * Should be different kind of setBoardPlacemenet;
+     * latitude = x vertex
+     * longitude = y vertex
+     */
     @Override
     public void setBoardPlacement(int latitude, int longitude, Direction direction) {
-       /* 
-        * Should be different kind of setBoardPlacemenet;
-        */
-       this.latitude = latitude;
+       this.latitude = latitude; 
        this.longitude = longitude;
        this.direction = direction;
     }
-
-    //--------------------------------------------------------------------------
     
     @Override
     public boolean isPlacedOnBoard() {
         throw new UnsupportedOperationException("Not supported yet."); 
         //To change body of generated methods, choose Tools | Templates.
     }
-
-    //--------------------------------------------------------------------------
     
     @Override
     public int getLatitude() {
-        return(latitude);
+        return latitude;
     }
     
     @Override
     public int getLongitude() {
-        return(longitude);
+        return longitude;
     }
 
     @Override
     public Direction getDirection() {
-        return(direction);
+        return direction;
     }
     
     /**
-     * Should not be here!
-     * @return armor of the ship
+     * min: 0, max {getWidth() - 1}, AND armor[i]?
+     * 
+     * @param x coordinates x (sirka lodi, width) 1
+     * @param y coordinates y (delka lodi, length) 3 pole [0,1,2]
+     * @return ArmorState
      */
-    public String toStringAnotherInfo() {
-        return("LLD -> Latitude: " + getLatitude() + " " + "Longitude: " + getLongitude() + " " + "Direction: " + getDirection());
-    }
-    
-    //--------------------------------------------------------------------------
-
     @Override
     public ArmorState getArmor(int x, int y) {
-        /**
-         * Problem is: we are talking about armor for one specific cell;
-         * I am returning armor state for all ship  ( ! longitude, latitude -> length, width);
-         */
-        if((x > 0 && x < getWidth() - 1) && (y > 0 && y < getLength() - 1)) {
-            return(armor);
+        switch(getDirection()) {
+            case EAST:
+                if(y == getLongitude()) {
+                    for(int i = 0; i < getLength(); i++) {
+                        if(x == (getLatitude() + i)) {
+                            return armor[i];
+                        }
+                    }   
+                } 
+                return null;
+            
+            case SOUTH:
+                if(x == getLatitude()) {
+                    for(int i = 0; i < getLength(); i++) {
+                        if(y == (getLongitude() - i)) {
+                            return armor[i];
+                        }
+                    }   
+                }
+                return null;
+            
+            case WEST:
+                if(y == getLongitude()) {
+                    for(int i = 0; i < getLength(); i++) {
+                        if(x == (getLatitude() - i)) {
+                            return armor[i];
+                        }
+                    }   
+                }
+                return null;
+            
+            case NORTH:
+                if(x == getLatitude()) {
+                    for(int i = 0; i < getLength(); i++) {
+                        if(y == (getLongitude() + i)) {
+                            return armor[i];
+                        }
+                    }   
+                }
+                return null;
+            
+            default:
+                return null;
         }
-        
-        return null;
     }
-
+    
     @Override
     public ArmorState hit(int x, int y) {
         throw new UnsupportedOperationException("Not supported yet."); 
