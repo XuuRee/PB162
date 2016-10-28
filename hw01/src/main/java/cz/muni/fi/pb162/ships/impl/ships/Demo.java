@@ -19,15 +19,20 @@ public class Demo {
      */
     public static void main(String[] args) {
         ScoutingShip scoutingShip = new ScoutingShip();
-        Frigate frigateShip = new Frigate();
-        Cruiser cruiserShip = new Cruiser();
         
         scoutingShip.setBoardPlacement(5, 3, Direction.WEST);
         
-        System.out.println(frigateShip.toString());
-        System.out.println(cruiserShip.toString());
         System.out.println(scoutingShip.getArmor(5,3));
         System.out.println(scoutingShip.getArmor(4,3));
         System.out.println(scoutingShip.getArmor(3,3));
+        System.out.println(scoutingShip.hit(5,3));
+        System.out.println(scoutingShip.hit(4,3));
+        System.out.println(scoutingShip.hit(3,3));
+        
+        if(scoutingShip.isDestroyed()) {
+            System.out.println("Ship is destroyed!");
+        } else {
+            System.out.println("Ship is not destroyed!");
+        }
     }
 }
