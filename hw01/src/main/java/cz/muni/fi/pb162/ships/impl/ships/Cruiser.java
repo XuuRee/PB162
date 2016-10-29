@@ -15,7 +15,7 @@ import cz.muni.fi.pb162.ships.Ship;
 public class Cruiser implements Ship {
     private final int length;                                                   
     private final int width;
-    private final ArmorState armor;
+    private final ArmorState[][] armor = new ArmorState[2][5];
     
     /**
      * Parameterless Constructor
@@ -23,7 +23,7 @@ public class Cruiser implements Ship {
     public Cruiser() {                                                         
         this.length = 5;
         this.width = 2;
-        this.armor = ArmorState.REINFORCED;
+        fillArray(this.armor);
     }
     
      @Override
@@ -34,6 +34,32 @@ public class Cruiser implements Ship {
     @Override
     public int getWidth() {
         return(width);
+    }
+    
+    /**
+     * Method fillArray fill 2D array by REINFORCED value
+     * 
+     * @param armor empty 2D array
+     */
+    public final void fillArray(ArmorState[][] armor) { 
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 5; j++) {
+                armor[i][j] = ArmorState.REINFORCED;
+            }
+        }
+    }
+    
+    public void armorToString() {
+        System.out.println(armor[0][0]);
+        System.out.println(armor[0][1]);
+        System.out.println(armor[0][2]);
+        System.out.println(armor[0][3]);
+        System.out.println(armor[0][4]);
+        System.out.println(armor[1][0]);
+        System.out.println(armor[1][1]);
+        System.out.println(armor[1][2]);
+        System.out.println(armor[1][3]);
+        System.out.println(armor[1][4]);
     }
     
     @Override

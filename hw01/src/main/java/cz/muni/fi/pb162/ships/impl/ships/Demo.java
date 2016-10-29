@@ -19,14 +19,14 @@ public class Demo {
      */
     public static void main(String[] args) {
         ScoutingShip scoutingShip = new ScoutingShip();
-        
+       
         scoutingShip.setBoardPlacement(0, 0, Direction.NORTH);
         if(scoutingShip.isPlacedOnBoard()) {
-            System.out.println(scoutingShip.getArmor(1,2));
-            System.out.println(scoutingShip.getArmor(3,1));
-            System.out.println(scoutingShip.getArmor(3,2));
+            System.out.println(scoutingShip.getArmor(0,0));
             System.out.println(scoutingShip.hit(0,0));
+            System.out.println(scoutingShip.getArmor(0,1));
             System.out.println(scoutingShip.hit(0,1));
+            System.out.println(scoutingShip.getArmor(0,2));
             System.out.println(scoutingShip.hit(0,2));
             if(scoutingShip.isDestroyed()) {
                 System.out.println("Ship is destroyed!");
@@ -34,7 +34,10 @@ public class Demo {
                 System.out.println("Ship is not destroyed!");
             }
         } else {
-            System.out.println("Lod neni umistena na plose!");
+            System.out.println("Ship is not on the board!");
         }
+        
+        Cruiser cruiserShip = new Cruiser();
+        cruiserShip.armorToString();
     }
 }
