@@ -9,9 +9,9 @@ package cz.muni.fi.pb162.project.geometry;
  * @author xvalchar
  */
 public class GeneralRegularPolygon implements RegularPolygon, Colored {
-    private Vertex2D center;
-    private int numEdges;
-    private double edgeLength;
+    private final Vertex2D center;
+    private final int numEdges;
+    private final double edgeLength;
     private String color;
     
     /**
@@ -50,7 +50,7 @@ public class GeneralRegularPolygon implements RegularPolygon, Colored {
 
     @Override
     public double getArea() {
-        return( ((getNumEdges() * Math.pow(getRadius(),2) * Math.sin(2*Math.PI / getNumEdges()) ) / 2) );
+        return(((getNumEdges() * Math.pow(getRadius(),2) * Math.sin(2*Math.PI / getNumEdges()) ) / 2));
     }
 
     @Override
@@ -74,7 +74,7 @@ public class GeneralRegularPolygon implements RegularPolygon, Colored {
     }
    
     @Override
-    public void setColor(String color) {
+    public final void setColor(String color) {
         this.color = color;
     }
     
@@ -82,6 +82,7 @@ public class GeneralRegularPolygon implements RegularPolygon, Colored {
      * @return String location of point
      */
     public String toString() {
-        return(getNumEdges() + "-gon: center=" + getCenter() + ", " + "edge length=" + getEdgeLength() + ", color=" + getColor());
+        return(getNumEdges() + "-gon: center=" + getCenter() + ", " + "edge "
+                + "length=" + getEdgeLength() + ", color=" + getColor());
     }
 }

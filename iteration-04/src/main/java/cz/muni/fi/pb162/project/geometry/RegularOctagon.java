@@ -9,15 +9,14 @@ package cz.muni.fi.pb162.project.geometry;
  * @author xvalchar
  */
 public class RegularOctagon extends GeneralRegularPolygon {
+    
     /**
      * Constructor
      * 
      * @param center center of polygon
-     * @param numEdges number of edges
      * @param edgeLength length of edge
      */
-    public RegularOctagon(Vertex2D center, int numEdges, double edgeLength) {
-        super(center, numEdges, edgeLength);
-    }
-    
+    public RegularOctagon(Vertex2D center, double edgeLength) {
+        super(center, 8, edgeLength);
+    }  
 }
