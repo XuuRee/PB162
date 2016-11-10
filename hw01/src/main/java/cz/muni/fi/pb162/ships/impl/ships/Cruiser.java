@@ -17,6 +17,10 @@ public class Cruiser implements Ship {
     private final int width;
     private final ArmorState[][] armor = new ArmorState[2][5];
     
+    private int latitude; 
+    private int longitude; 
+    private Direction direction;
+    
     /**
      * Parameterless Constructor
      */
@@ -28,12 +32,12 @@ public class Cruiser implements Ship {
     
      @Override
     public int getLength() {
-        return(length);
+        return length;
     }
 
     @Override
     public int getWidth() {
-        return(width);
+        return width;
     }
     
     /**
@@ -49,59 +53,151 @@ public class Cruiser implements Ship {
         }
     }
     
-    public void armorToString() {
-        System.out.println(armor[0][0]);
-        System.out.println(armor[0][1]);
-        System.out.println(armor[0][2]);
-        System.out.println(armor[0][3]);
-        System.out.println(armor[0][4]);
-        System.out.println(armor[1][0]);
-        System.out.println(armor[1][1]);
-        System.out.println(armor[1][2]);
-        System.out.println(armor[1][3]);
-        System.out.println(armor[1][4]);
-    }
-    
     @Override
     public void setBoardPlacement(int latitude, int longitude, Direction direction) {
-        throw new UnsupportedOperationException("Not supported yet."); 
-        //To change body of generated methods, choose Tools | Templates.
+        this.latitude = latitude; 
+        this.longitude = longitude;
+        this.direction = direction;
     }
 
+    /**
+     * Musim poresit jestli se lode prekryvaji, pripadne jestli nezachazeji 
+     * souradnicemi na opacny konec hraci plochy.
+    
     @Override
     public boolean isPlacedOnBoard() {
-        throw new UnsupportedOperationException("Not supported yet."); 
-        //To change body of generated methods, choose Tools | Templates.
+        if(getLatitude() >= 0 && getLongitude() >= 0) {
+            switch(getDirection()) {
+                case EAST: 
+                    if(getLongitude() < getWidth() - 1) {
+                        return false;
+                    }
+                    return true;
+                case SOUTH:
+                    if(getLatitude() < getWidth() - 1 || getLongitude() < getLength() - 1) {
+                        return false;
+                    }
+                    return true;
+                case WEST:
+                    if(getLatitude() < getLength() - 1) {
+                        return false;
+                    }
+                    return true;
+                case NORTH: 
+                    return true;
+                default: return false;
+            }
+        }
+        return false;
     }
-
+    */
+ 
     @Override
     public int getLongitude() {
-        throw new UnsupportedOperationException("Not supported yet."); 
-        //To change body of generated methods, choose Tools | Templates.
+        return longitude;
     }
 
     @Override
     public int getLatitude() {
-        throw new UnsupportedOperationException("Not supported yet."); 
-        //To change body of generated methods, choose Tools | Templates.
+        return latitude;
     }
 
     @Override
     public Direction getDirection() {
-        throw new UnsupportedOperationException("Not supported yet."); 
-        //To change body of generated methods, choose Tools | Templates.
+         return direction;
     }
 
+    /*
     @Override
     public ArmorState getArmor(int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet."); 
-        //To change body of generated methods, choose Tools | Templates.
+        switch(getDirection()) {
+            case EAST:
+                if(y == getLongitude() || y == getLongitude() - 1) { 
+                    for(int i = 0; i < getWidth(); i++) {
+                        for(int j = 0; j < getLength(); j++) {
+                            if(x == (getLatitude() + j) && y == (getLongitude() - i)) {
+                                return armor[i][j];
+                            }
+                        }
+                    }   
+                } 
+                return null;
+           
+            case SOUTH:
+                if(x == getLatitude() || x == (getLatitude() - 1)) {
+                    for(int i = 0; i < getWidth(); i++) {
+                        for(int j = 0; j < getLength(); j++) {
+                            if(y == (getLongitude() - j) && x == (getLatitude() - i)) {
+                                return armor[i][j];
+                            }
+                        }   
+                    }
+                }
+                return null;
+    
+            case WEST:
+                if(y == getLongitude()) {
+                    for(int i = 0; i < getLength(); i++) {
+                        if(x == (getLatitude() - i)) {
+                            return armor[i];
+                        }
+                    }   
+                }
+                return null;
+            
+            case NORTH:
+                if(x == getLatitude()) {
+                    for(int i = 0; i < getLength(); i++) {
+                        if(y == (getLongitude() + i)) {
+                            return armor[i];
+                        }
+                    }   
+                }
+                return null;
+            
+            default:
+                return null;
+        }
     }
 
     @Override
     public ArmorState hit(int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet."); 
-        //To change body of generated methods, choose Tools | Templates.
+        switch(getDirection()) {
+            case EAST:
+                if(y == getLongitude() || y == getLongitude() - 1) { 
+                    for(int i = 0; i < getWidth(); i++) {
+                        for(int j = 0; j < getLength(); j++) {
+                            if(x == (getLatitude() + j) && y == (getLongitude() - i)) {
+                                if(armor[i][j] == ArmorState.REINFORCED) {
+                                    return armor[i][j] = ArmorState.SOUND;
+                                } else {
+                                    return armor[i][j] = ArmorState.DESTROYED;
+                                }
+                            }
+                        }
+                    }   
+                } 
+                return null;
+                
+            case SOUTH:
+                if(x == getLatitude() || x == (getLatitude() - 1)) {
+                    for(int i = 0; i < getWidth(); i++) {
+                        for(int j = 0; j < getLength(); j++) {
+                            if(y == (getLongitude() - j) && x == (getLatitude() - i)) {
+                                if(armor[i][j] == ArmorState.REINFORCED) {
+                                    return armor[i][j] = ArmorState.SOUND;
+                                } else {
+                                    return armor[i][j] = ArmorState.DESTROYED;
+                                }
+                            }
+                        }   
+                    }
+                }
+                return null;
+                
+            default:
+                return null;
+        }
     }
 
     @Override
@@ -109,5 +205,5 @@ public class Cruiser implements Ship {
         throw new UnsupportedOperationException("Not supported yet."); 
         //To change body of generated methods, choose Tools | Templates.
     }
-    
+    */
 }

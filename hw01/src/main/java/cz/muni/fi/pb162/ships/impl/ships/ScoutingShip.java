@@ -18,9 +18,9 @@ import cz.muni.fi.pb162.ships.Ship;
  *    POLE. NAPR.: {1,2,3} ?
  * 3. U SMERU EAST A NORTH JE TREBA UDELAT HRANICI PRO X, RESP.
  *    PRO Y...
- * 4. PROBLEM MUZE BYT U SOURADNIC - JA SE DIVAM NA POHLED Z 
+ * 4. !!! PROBLEM MUZE BYT U SOURADNIC - JA SE DIVAM NA POHLED Z 
  *    HRACI PLOCHY... TESTY MOHOU CHTIT NA PARAMETRECH X a Y VZDY
- *    SOURADNICE DANE LODI!
+ *    SOURADNICE DANE LODI !!!
  * 
  * @author xvalchar
  */
@@ -66,12 +66,12 @@ public class ScoutingShip implements Ship {
                 case EAST:
                     return true;
                 case SOUTH:
-                    if(getLongitude() < getLength()) {
+                    if(getLongitude() < getLength() - 1) {
                         return false;
                     }
                     return true;
                 case WEST:
-                    if(getLatitude() < getLength()) {
+                    if(getLatitude() < getLength() - 1) { 
                         return false;
                     }
                     return true;
@@ -101,43 +101,39 @@ public class ScoutingShip implements Ship {
     @Override
     public ArmorState getArmor(int x, int y) {
         switch(getDirection()) {
+            // Jdu na vychod -> x nabyva hodnot 0, 1, 2, y porad 0
             case EAST:
-                if(y == getLongitude()) {
-                    for(int i = 0; i < getLength(); i++) {
-                        if(x == (getLatitude() + i)) {
-                            return armor[i];
-                        }
-                    }   
-                } 
+                for(int i = 0; i < getLength(); i++) {
+                    if(x == i) {
+                        return armor[i];
+                    }
+                }
                 return null;
             
             case SOUTH:
-                if(x == getLatitude()) {
-                    for(int i = 0; i < getLength(); i++) {
-                        if(y == (getLongitude() - i)) {
-                            return armor[i];
-                        }
-                    }   
+                // Jdu na jih -> x porad 0, y nabyva hodnot 0,1,2
+                for(int i = 0; i < getLength(); i++) {
+                    if(y == i) {
+                        return armor[i];
+                    }
                 }
                 return null;
             
             case WEST:
-                if(y == getLongitude()) {
-                    for(int i = 0; i < getLength(); i++) {
-                        if(x == (getLatitude() - i)) {
-                            return armor[i];
-                        }
-                    }   
+                // Jdu na zapad -> y porad 0, x nabyva hodnot 0,1,2
+                for(int i = 0; i < getLength(); i++) {
+                    if(x == i) {
+                        return armor[i];
+                    }
                 }
                 return null;
             
             case NORTH:
-                if(x == getLatitude()) {
-                    for(int i = 0; i < getLength(); i++) {
-                        if(y == (getLongitude() + i)) {
-                            return armor[i];
-                        }
-                    }   
+                // Jdu na sever -> x porad 0, y nabyva hodnot 0,1,2
+                for(int i = 0; i < getLength(); i++) {
+                    if(y == i) {
+                        return armor[i];
+                    }
                 }
                 return null;
             
@@ -150,42 +146,34 @@ public class ScoutingShip implements Ship {
     public ArmorState hit(int x, int y) {
         switch(getDirection()) {
             case EAST:
-                if(y == getLongitude()) {
-                    for(int i = 0; i < getLength(); i++) {
-                        if(x == (getLatitude() + i)) {
-                            return armor[i] = ArmorState.DESTROYED;
-                        }
-                    }   
-                } 
+                for(int i = 0; i < getLength(); i++) {
+                    if(x == i) {
+                        return armor[i] = ArmorState.DESTROYED;
+                    }
+                }    
                 return null;
             
             case SOUTH:
-                if(x == getLatitude()) {
-                    for(int i = 0; i < getLength(); i++) {
-                        if(y == (getLongitude() - i)) {
-                            return armor[i] = ArmorState.DESTROYED;
-                        }
-                    }   
+                for(int i = 0; i < getLength(); i++) {
+                    if(y == i) {
+                        return armor[i] = ArmorState.DESTROYED;
+                    }
                 }
                 return null;
             
             case WEST:
-                if(y == getLongitude()) {
-                    for(int i = 0; i < getLength(); i++) {
-                        if(x == (getLatitude() - i)) {
-                            return armor[i] = ArmorState.DESTROYED;
-                        }
-                    }   
+                for(int i = 0; i < getLength(); i++) {
+                    if(x == i) {
+                        return armor[i] = ArmorState.DESTROYED;
+                    }
                 }
                 return null;
             
             case NORTH:
-                if(x == getLatitude()) {
-                    for(int i = 0; i < getLength(); i++) {
-                        if(y == (getLongitude() + i)) {
-                            return armor[i] = ArmorState.DESTROYED;
-                        }
-                    }   
+                for(int i = 0; i < getLength(); i++) {
+                    if(y == i) {
+                        return armor[i] = ArmorState.DESTROYED;
+                    }
                 }
                 return null;
             
@@ -201,7 +189,7 @@ public class ScoutingShip implements Ship {
         switch(getDirection()) {
             case EAST:
                 for(int i = 0; i < getLength(); i++) {
-                    if( getArmor(getLatitude() + i, getLongitude())!= ArmorState.DESTROYED ) {
+                    if( getArmor(i,0)!= ArmorState.DESTROYED ) {
                         destroy = false;
                     }
                 }
@@ -209,7 +197,7 @@ public class ScoutingShip implements Ship {
             
             case SOUTH:
                 for(int i = 0; i < getLength(); i++) {
-                    if( getArmor(getLatitude(), getLongitude() - i)!= ArmorState.DESTROYED ) {
+                    if( getArmor(0,i)!= ArmorState.DESTROYED ) {
                         destroy = false;
                     }
                 }
@@ -217,7 +205,7 @@ public class ScoutingShip implements Ship {
             
             case WEST:
                 for(int i = 0; i < getLength(); i++) {
-                    if( getArmor(getLatitude() - i, getLongitude())!= ArmorState.DESTROYED ) {
+                    if( getArmor(i,0)!= ArmorState.DESTROYED ) {
                         destroy = false;
                     }
                 }
@@ -225,7 +213,7 @@ public class ScoutingShip implements Ship {
                 
             case NORTH:
                 for(int i = 0; i < getLength(); i++) {
-                    if( getArmor(getLatitude(), getLongitude() + i)!= ArmorState.DESTROYED ) {
+                    if( getArmor(0,i)!= ArmorState.DESTROYED ) {
                         destroy = false;
                     }
                 }

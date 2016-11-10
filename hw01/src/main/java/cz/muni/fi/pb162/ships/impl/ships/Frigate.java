@@ -89,94 +89,42 @@ public class Frigate implements Ship {
         return direction;
     }
 
-        @Override
+    @Override
     public ArmorState getArmor(int x, int y) {
         switch(getDirection()) {
+            // Jdu na vychod -> x nabyva hodnot 0, 1, 2, y porad 0
             case EAST:
-                if(y == getLongitude()) {
-                    for(int i = 0; i < getLength(); i++) {
-                        if(x == (getLatitude() + i)) {
-                            return armor[i];
-                        }
-                    }   
-                } 
+                for(int i = 0; i < getLength(); i++) {
+                    if(x == i) {
+                        return armor[i];
+                    }
+                }
                 return null;
             
             case SOUTH:
-                if(x == getLatitude()) {
-                    for(int i = 0; i < getLength(); i++) {
-                        if(y == (getLongitude() - i)) {
-                            return armor[i];
-                        }
-                    }   
+                // Jdu na jih -> x porad 0, y nabyva hodnot 0,1,2
+                for(int i = 0; i < getLength(); i++) {
+                    if(y == i) {
+                        return armor[i];
+                    }
                 }
                 return null;
             
             case WEST:
-                if(y == getLongitude()) {
-                    for(int i = 0; i < getLength(); i++) {
-                        if(x == (getLatitude() - i)) {
-                            return armor[i];
-                        }
-                    }   
+                // Jdu na zapad -> y porad 0, x nabyva hodnot 0,1,2
+                for(int i = 0; i < getLength(); i++) {
+                    if(x == i) {
+                        return armor[i];
+                    }
                 }
                 return null;
             
             case NORTH:
-                if(x == getLatitude()) {
-                    for(int i = 0; i < getLength(); i++) {
-                        if(y == (getLongitude() + i)) {
-                            return armor[i];
-                        }
-                    }   
-                }
-                return null;
-            
-            default:
-                return null;
-        }
-    }
-    
-    @Override
-    public ArmorState hit(int x, int y) {
-        switch(getDirection()) {
-            case EAST:
-                if(y == getLongitude()) {
-                    for(int i = 0; i < getLength(); i++) {
-                        if(x == (getLatitude() + i)) {
-                            return armor[i] = ArmorState.DESTROYED;
-                        }
-                    }   
-                } 
-                return null;
-            
-            case SOUTH:
-                if(x == getLatitude()) {
-                    for(int i = 0; i < getLength(); i++) {
-                        if(y == (getLongitude() - i)) {
-                            return armor[i] = ArmorState.DESTROYED;
-                        }
-                    }   
-                }
-                return null;
-            
-            case WEST:
-                if(y == getLongitude()) {
-                    for(int i = 0; i < getLength(); i++) {
-                        if(x == (getLatitude() - i)) {
-                            return armor[i] = ArmorState.DESTROYED;
-                        }
-                    }   
-                }
-                return null;
-            
-            case NORTH:
-                if(x == getLatitude()) {
-                    for(int i = 0; i < getLength(); i++) {
-                        if(y == (getLongitude() + i)) {
-                            return armor[i] = ArmorState.DESTROYED;
-                        }
-                    }   
+                // Jdu na sever -> x porad 0, y nabyva hodnot 0,1,2
+                for(int i = 0; i < getLength(); i++) {
+                    if(y == i) {
+                        return armor[i];
+                    }
                 }
                 return null;
             
@@ -186,13 +134,53 @@ public class Frigate implements Ship {
     }
 
     @Override
+    public ArmorState hit(int x, int y) {
+        switch(getDirection()) {
+            case EAST:
+                for(int i = 0; i < getLength(); i++) {
+                    if(x == i) {
+                        return armor[i] = ArmorState.DESTROYED;
+                    }
+                }    
+                return null;
+            
+            case SOUTH:
+                for(int i = 0; i < getLength(); i++) {
+                    if(y == i) {
+                        return armor[i] = ArmorState.DESTROYED;
+                    }
+                }
+                return null;
+            
+            case WEST:
+                for(int i = 0; i < getLength(); i++) {
+                    if(x == i) {
+                        return armor[i] = ArmorState.DESTROYED;
+                    }
+                }
+                return null;
+            
+            case NORTH:
+                for(int i = 0; i < getLength(); i++) {
+                    if(y == i) {
+                        return armor[i] = ArmorState.DESTROYED;
+                    }
+                }
+                return null;
+            
+            default:
+                return null;
+        }
+    }
+    
+    @Override
     public boolean isDestroyed() {
         boolean destroy = true;
         
         switch(getDirection()) {
             case EAST:
                 for(int i = 0; i < getLength(); i++) {
-                    if( getArmor(getLatitude() + i, getLongitude())!= ArmorState.DESTROYED ) {
+                    if( getArmor(i,0)!= ArmorState.DESTROYED ) {
                         destroy = false;
                     }
                 }
@@ -200,7 +188,7 @@ public class Frigate implements Ship {
             
             case SOUTH:
                 for(int i = 0; i < getLength(); i++) {
-                    if( getArmor(getLatitude(), getLongitude() - i)!= ArmorState.DESTROYED ) {
+                    if( getArmor(0,i)!= ArmorState.DESTROYED ) {
                         destroy = false;
                     }
                 }
@@ -208,7 +196,7 @@ public class Frigate implements Ship {
             
             case WEST:
                 for(int i = 0; i < getLength(); i++) {
-                    if( getArmor(getLatitude() - i, getLongitude())!= ArmorState.DESTROYED ) {
+                    if( getArmor(i,0)!= ArmorState.DESTROYED ) {
                         destroy = false;
                     }
                 }
@@ -216,7 +204,7 @@ public class Frigate implements Ship {
                 
             case NORTH:
                 for(int i = 0; i < getLength(); i++) {
-                    if( getArmor(getLatitude(), getLongitude() + i)!= ArmorState.DESTROYED ) {
+                    if( getArmor(0,i)!= ArmorState.DESTROYED ) {
                         destroy = false;
                     }
                 }
@@ -226,24 +214,4 @@ public class Frigate implements Ship {
                 return destroy;
         }
     }    
-    
-    /*
-    @Override
-    public ArmorState getArmor(int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet."); 
-        //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public ArmorState hit(int x, int y) {
-        throw new UnsupportedOperationException("Not supported yet."); 
-        //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public boolean isDestroyed() {
-        throw new UnsupportedOperationException("Not supported yet."); 
-        //To change body of generated methods, choose Tools | Templates.
-    }
-    */
 }
