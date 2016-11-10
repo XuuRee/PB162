@@ -29,8 +29,8 @@ public abstract class SimplePolygon implements Polygon {
         double min = getVertex(0).getX();
         
         for(int i = 0; i < getNumVertices(); i++) {
-            Math.max(getVertex(i).getX(),max);
-            Math.min(getVertex(i).getX(),min);
+            max = Math.max(getVertex(i).getX(),max);
+            min = Math.min(getVertex(i).getX(),min);
         }
         
         return max - min;
@@ -41,9 +41,10 @@ public abstract class SimplePolygon implements Polygon {
         double max = getVertex(0).getY();
         double min = getVertex(0).getY();
         
+       
         for(int i = 0; i < getNumVertices(); i++) {
-            Math.max(getVertex(i).getY(),max);
-            Math.min(getVertex(i).getY(), min);
+            max = Math.max(getVertex(i).getY(),max);
+            min = Math.min(getVertex(i).getY(),min);
         } 
         
         return max - min;
@@ -54,15 +55,24 @@ public abstract class SimplePolygon implements Polygon {
         double length = 0;
         
         for(int i = 0; i < getNumVertices(); i++) {
-            if(getVertex(i+1) != null) {    // !!!
-                length = getVertex(i).distance(getVertex(i+1));
+            if(getVertex(i+1) != null) {   
+                length += getVertex(i).distance(getVertex(i+1));
             }
         }
         
         return length;
     }
 
+    /**
+     * Print point for each vertices
+     * 
+     * @return String of vertices 
+     */
     public String toString() {
-        return "Polygon: vertices=";
+        String verticesStr = "Polygon: vertices =";
+        for(int i = 0; i < getNumVertices(); i++) {
+            verticesStr += " " + getVertex(i);
+        }
+        return verticesStr;
     }
 }

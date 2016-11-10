@@ -16,6 +16,12 @@ public class OlympicRings extends Circle {
     private final Circle yellowCircle;
     private final Circle greenCircle;
    
+    /**
+     * Constructor
+     * 
+     * @param center center of black ring
+     * @param radius radius of all circles
+     */
     public OlympicRings(Vertex2D center, double radius) {
         blackCircle = new Circle(center, radius);
         redCircle = new Circle(new Vertex2D(center.getX() + 2 * radius + 10, center.getY()), radius);
@@ -25,6 +31,9 @@ public class OlympicRings extends Circle {
         setRingsColors();
     }
     
+    /**
+     * Set color on each rings
+     */
     public final void setRingsColors() {
         blueCircle.setColor("blue");
         redCircle.setColor("red");

@@ -10,6 +10,13 @@ package cz.muni.fi.pb162.project.geometry;
  */
 public class Square extends GeneralRegularPolygon {
      
+    /**
+     * Constructor 
+     * 
+     * @param center center of square
+     * @param edgeLength length of the edge
+     */
+    
     public Square(Vertex2D center, double edgeLength) {
         super(center, 4, edgeLength);
     }

@@ -14,6 +14,13 @@ public class ArrayPolygon extends SimplePolygon {
     
     private final Vertex2D[] vertices;
     
+    /**
+     * Check if parameter vertices is not null and copy array of vertices to  
+     * private final Vertex2D vertices
+     * 
+     * @param vertices array of points (Vertex2D)
+     * @throws IllegalArgumentException if vertices or any vertice in array is null 
+     */
     public ArrayPolygon(Vertex2D[] vertices) throws IllegalArgumentException {
         if(vertices == null) {
             throw new IllegalArgumentException("Vertices is null!");

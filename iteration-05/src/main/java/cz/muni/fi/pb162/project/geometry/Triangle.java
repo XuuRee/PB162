@@ -8,7 +8,8 @@ package cz.muni.fi.pb162.project.geometry;
 /**
  * @author xvalchar
  */
-public class Triangle implements Solid {
+public class Triangle extends ArrayPolygon implements Solid {
+    
     private Vertex2D pointA;
     private Vertex2D pointB;
     private Vertex2D pointC;
@@ -34,9 +35,7 @@ public class Triangle implements Solid {
      * @param pointC point of Triangle
      */
     public Triangle(Vertex2D pointA, Vertex2D pointB, Vertex2D pointC) {
-        this.pointA = pointA;
-        this.pointB = pointB;
-        this.pointC = pointC;
+        super(new Vertex2D[] {pointA, pointB, pointC});
     }
     
     /**
@@ -50,31 +49,6 @@ public class Triangle implements Solid {
         this(pointA, pointB, pointC);
         this.depth = depth;
         divide(depth - 1);
-    }
-    
-    public Vertex2D getVertexA() {
-        return pointA;
-    }
-
-    public Vertex2D getVertexB() {
-        return pointB;
-    }
-
-    public Vertex2D getVertexC() {
-        return pointC;
-    }
-    
-    /**
-     * Method print each point of triangle
-     * 
-     * @return String representation of this object
-     */
-    public String toString() {
-        if(getVertexA() != null && getVertexB() != null && getVertexC() != null) {
-            return("Triangle: vertices=" + pointA.toString() + " " + pointB.toString() + " " + pointC.toString());
-        } else {
-            return("INVALID TRIANGLE");
-        }
     }
     
     /**
@@ -157,36 +131,4 @@ public class Triangle implements Solid {
         return(Math.abs(d1 - d2) < EPSILON && Math.abs(d1 - d3) < EPSILON && (Math.abs(d2 - d3) < EPSILON));
     }
 
-    @Override
-    public double getArea() {
-        double d1 = pointA.distance(pointB);
-        double d2 = pointA.distance(pointC);
-        double d3 = pointB.distance(pointC);
-        double s = ((d1 + d2 + d3) / 2);
-        return( Math.sqrt(s * (s - d1) * (s - d2) * (s - d3)) );
-    }
-
-    @Override
-    public double getWidth() {
-        double maxMiddleX = Math.max(pointA.getX(),pointB.getX());
-        double minMiddleX = Math.min(pointA.getX(),pointB.getX());
-        double width = (Math.max(maxMiddleX,pointC.getX())) - (Math.min(minMiddleX,pointC.getX())); 
-        return(width);
-    }
-
-    @Override
-    public double getHeight() {
-        double maxMiddleY = Math.max(pointA.getY(),pointB.getY());
-        double minMiddleY = Math.min(pointA.getY(),pointB.getY());
-        double height = (Math.max(maxMiddleY,pointC.getY())) - (Math.min(minMiddleY,pointC.getY())); 
-        return(height);
-    }
-
-    @Override
-    public double getLength() {
-        double d1 = pointA.distance(pointB);
-        double d2 = pointA.distance(pointC);
-        double d3 = pointB.distance(pointC);
-        return(d1 + d2 + d3);
-    }
 }

@@ -6,7 +6,7 @@
 
 package cz.muni.fi.pb162.project.demo;
 import cz.muni.fi.pb162.project.geometry.Vertex2D;
-import cz.muni.fi.pb162.project.geometry.OlympicRings;
+import cz.muni.fi.pb162.project.geometry.Triangle;
 
 /**
  * @author xvalchar
@@ -17,9 +17,16 @@ public class Demo {
      * @param args argument is type of string[]
      */
     public static void main(String[] args) {
-        Vertex2D pointA = new Vertex2D(0,0);
-        
-        OlympicRings olympicRings = new OlympicRings(pointA, 1.35);
+       Vertex2D pointA = new Vertex2D(-3.0, -1.0);
+       Vertex2D pointB = new Vertex2D(-2.0, -2.0);
+       Vertex2D pointC = new Vertex2D(-1.0, -1.0);
+       
+       Triangle triangle =  new Triangle(pointA, pointB, pointC);
+       
+       System.out.println(triangle.getHeight());
+       System.out.println(triangle.getWidth());
+       System.out.println(triangle.getLength());
+       System.out.println(triangle.getArea());
     }
 }
 
