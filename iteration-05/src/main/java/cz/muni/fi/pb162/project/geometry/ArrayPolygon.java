@@ -8,6 +8,8 @@ package cz.muni.fi.pb162.project.geometry;
 import java.util.Arrays;
 
 /**
+ * STILL IN PROCESS !!!
+ * 
  * @author xvalchar
  */
 public class ArrayPolygon extends SimplePolygon {
@@ -48,5 +50,60 @@ public class ArrayPolygon extends SimplePolygon {
     public int getNumVertices() {
         return vertices.length;
     }
+ 
+    public ArrayPolygon invert() {
+        Vertex2D[] vertexes = new Vertex2D[vertices.length];
+        
+        for(int i = 0; i < getNumVertices(); i++) {
+            vertexes[i] = new Vertex2D(getVertex(i).getX() * (-1), getVertex(i).getY() * (-1));
+        }
+ 
+        ArrayPolygon invertPolygon = new ArrayPolygon(vertexes);
+        return invertPolygon;
+    }
     
+    public boolean compareShiftFirstElement(ArrayPolygon pol) {
+        int indexFirstElement = -1;
+         
+        for(int i = 0; i < getNumVertices(); i++) {
+            if((getVertex(0).getX() == pol.getVertex(i).getX()) && (getVertex(0).getY() == pol.getVertex(i).getY())) {
+                indexFirstElement = i;
+            }
+        }
+        
+        System.out.println("FIRST ELEMENT   ->     " + indexFirstElement);
+        
+        int i, j;
+        
+        for(i = 0, j = indexFirstElement; i < getNumVertices(); i++, j++) {
+            System.out.println(i + " " + j + getVertex(i) + " " + pol.getVertex(j));
+            if((getVertex(i).getX() != pol.getVertex(j).getX()) || (getVertex(i).getY() != pol.getVertex(j).getY())) {
+                return false;
+            }
+            if(j == getNumVertices() - 1) {
+                j = -1;
+            }
+        }
+        
+        return true;
+    }
+    
+    public boolean compareReverse(ArrayPolygon pol) {
+        return true;
+    }
+    
+    public boolean compare(ArrayPolygon pol) {
+        if(getNumVertices() != pol.getNumVertices()) {
+            return false;
+        }
+                 
+        if(compareShiftFirstElement(pol)) {
+            System.out.println("Posunuti prvniho elementu JE v poradku");
+        }
+        else {
+            System.out.println("Posunuti prvniho elementu NENI v poradku");
+        }
+        
+        return true;
+    }
 }

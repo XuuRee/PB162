@@ -41,7 +41,6 @@ public abstract class SimplePolygon implements Polygon {
         double max = getVertex(0).getY();
         double min = getVertex(0).getY();
         
-       
         for(int i = 0; i < getNumVertices(); i++) {
             max = Math.max(getVertex(i).getY(),max);
             min = Math.min(getVertex(i).getY(),min);
@@ -70,9 +69,11 @@ public abstract class SimplePolygon implements Polygon {
      */
     public String toString() {
         String verticesStr = "Polygon: vertices =";
+        
         for(int i = 0; i < getNumVertices(); i++) {
             verticesStr += " " + getVertex(i);
         }
+        
         return verticesStr;
     }
 }
