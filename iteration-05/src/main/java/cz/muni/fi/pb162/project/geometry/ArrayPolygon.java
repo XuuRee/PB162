@@ -51,6 +51,11 @@ public class ArrayPolygon extends SimplePolygon {
         return vertices.length;
     }
  
+    /**
+     * Invert x and y coordinates
+     * 
+     * @return inverted ArrayPolygon 
+     */
     public ArrayPolygon invert() {
         Vertex2D[] vertexes = new Vertex2D[vertices.length];
         
@@ -62,6 +67,12 @@ public class ArrayPolygon extends SimplePolygon {
         return invertPolygon;
     }
     
+    /**
+     * Check if polygon have shift first element   
+     * 
+     * @param pol one of the polygons
+     * @return false if polygons are different, true otherwise
+     */
     public boolean compareShiftFirstElement(ArrayPolygon pol) {
         int indexFirstElement = -1;
         
@@ -87,6 +98,12 @@ public class ArrayPolygon extends SimplePolygon {
         return true;
     }
     
+    /**
+     * Reverse points of polygon
+     * 
+     * @param pol polygon that need to be reversed
+     * @return reverse arrayPolygon 
+     */
     public ArrayPolygon reverse(ArrayPolygon pol) {
         Vertex2D[] reversePol = new Vertex2D[getNumVertices()];
         
@@ -100,6 +117,12 @@ public class ArrayPolygon extends SimplePolygon {
         return reversePolygon;
     }
     
+    /**
+     * Compare origin polygon and reverse polygon
+     * 
+     * @param reversePolygon reverse polygon
+     * @return true if origin and reverse polygon are same, false otherwise
+     */
     public boolean compareReverse(ArrayPolygon reversePolygon) {
         for(int i = 0; i < getNumVertices(); i++) {
             if((getVertex(i).getX() != reversePolygon.getVertex(i).getX()) || 
@@ -111,6 +134,12 @@ public class ArrayPolygon extends SimplePolygon {
         return true;
     }
     
+    /**
+     * Compare two polygons
+     * 
+     * @param pol one of the polygons
+     * @return true if two polygons are same, false otherwise
+     */
     public boolean compare(ArrayPolygon pol) {
         if(getNumVertices() != pol.getNumVertices()) {
             return false;
@@ -127,10 +156,6 @@ public class ArrayPolygon extends SimplePolygon {
             return true;
         }
         
-        if(compareShiftFirstElement(reversePolygon)) {
-            return true;
-        }
-          
-        return false;
+        return compareShiftFirstElement(reversePolygon);
     }
 }
