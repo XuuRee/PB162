@@ -64,20 +64,19 @@ public class ArrayPolygon extends SimplePolygon {
     
     public boolean compareShiftFirstElement(ArrayPolygon pol) {
         int indexFirstElement = -1;
-         
+        
         for(int i = 0; i < getNumVertices(); i++) {
-            if((getVertex(0).getX() == pol.getVertex(i).getX()) && (getVertex(0).getY() == pol.getVertex(i).getY())) {
+            if((getVertex(0).getX() == pol.getVertex(i).getX()) && 
+               (getVertex(0).getY() == pol.getVertex(i).getY())) {
                 indexFirstElement = i;
             }
         }
-        
-        System.out.println("FIRST ELEMENT   ->     " + indexFirstElement);
-        
+   
         int i, j;
         
         for(i = 0, j = indexFirstElement; i < getNumVertices(); i++, j++) {
-            System.out.println(i + " " + j + getVertex(i) + " " + pol.getVertex(j));
-            if((getVertex(i).getX() != pol.getVertex(j).getX()) || (getVertex(i).getY() != pol.getVertex(j).getY())) {
+            if((getVertex(i).getX() != pol.getVertex(j).getX()) || 
+               (getVertex(i).getY() != pol.getVertex(j).getY())) {
                 return false;
             }
             if(j == getNumVertices() - 1) {
@@ -88,7 +87,27 @@ public class ArrayPolygon extends SimplePolygon {
         return true;
     }
     
-    public boolean compareReverse(ArrayPolygon pol) {
+    public ArrayPolygon reverse(ArrayPolygon pol) {
+        Vertex2D[] reversePol = new Vertex2D[getNumVertices()];
+        
+        int i, j;
+        
+        for(i = 0, j = getNumVertices() - 1; i < getNumVertices(); i++, j--) {
+            reversePol[i] = pol.getVertex(j);
+        }
+        
+        ArrayPolygon reversePolygon = new ArrayPolygon(reversePol); 
+        return reversePolygon;
+    }
+    
+    public boolean compareReverse(ArrayPolygon reversePolygon) {
+        for(int i = 0; i < getNumVertices(); i++) {
+            if((getVertex(i).getX() != reversePolygon.getVertex(i).getX()) || 
+               (getVertex(i).getY() != reversePolygon.getVertex(i).getY())) {
+                return false;
+            }
+        }
+        
         return true;
     }
     
@@ -96,14 +115,22 @@ public class ArrayPolygon extends SimplePolygon {
         if(getNumVertices() != pol.getNumVertices()) {
             return false;
         }
-                 
+        
         if(compareShiftFirstElement(pol)) {
-            System.out.println("Posunuti prvniho elementu JE v poradku");
-        }
-        else {
-            System.out.println("Posunuti prvniho elementu NENI v poradku");
+            return true;
         }
         
-        return true;
+        ArrayPolygon reversePolygon;
+        reversePolygon = reverse(pol);
+        
+        if(compareReverse(reversePolygon)) {
+            return true;
+        }
+        
+        if(compareShiftFirstElement(reversePolygon)) {
+            return true;
+        }
+          
+        return false;
     }
 }
