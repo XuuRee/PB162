@@ -8,8 +8,6 @@ package cz.muni.fi.pb162.project.geometry;
 import java.util.Arrays;
 
 /**
- * STILL IN PROCESS !!!
- * 
  * @author xvalchar
  */
 public class ArrayPolygon extends SimplePolygon {

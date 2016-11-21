@@ -6,8 +6,7 @@
 
 package cz.muni.fi.pb162.project.demo;
 import cz.muni.fi.pb162.project.geometry.Vertex2D;
-import cz.muni.fi.pb162.project.geometry.Circle;
-//import cz.muni.fi.pb162.project.db.MyStorage;
+import cz.muni.fi.pb162.project.geometry.GeneralRegularPolygon;
 
 /**
  * @author xvalchar
@@ -20,7 +19,15 @@ public class Demo {
     public static void main(String[] args) {
        
         Vertex2D point = new Vertex2D(0.0, 0.0);
-        Circle circle = new Circle(point, 1.0);
+        GeneralRegularPolygon polygon = new GeneralRegularPolygon(point, 6, 2.0);
+        
+        System.out.println(polygon.getNumVertices());
+        System.out.println(polygon.getVertex(0));
+        System.out.println(polygon.getVertex(1));
+        System.out.println(polygon.getVertex(2));
+        System.out.println(polygon.getVertex(3));
+        System.out.println(polygon.getVertex(4));
+        System.out.println(polygon.getVertex(5));
     }
 }
 

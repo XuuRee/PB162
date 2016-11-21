@@ -14,10 +14,10 @@ import java.net.UnknownHostException;
  */
 public class MyStorage implements Storage {
 
-    private Connector  connector;
     private Connection connection;
-    private int        maxAttempts;
-    private int        attempts;
+    private Connector connector;
+    private int maxAttempts;
+    private int attempts;
     
     /**
      * Constructor 

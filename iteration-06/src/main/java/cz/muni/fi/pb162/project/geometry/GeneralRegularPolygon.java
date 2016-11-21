@@ -88,18 +88,28 @@ public class GeneralRegularPolygon implements RegularPolygon, Colored {
 
     @Override
     public Vertex2D getVertex(int index) throws IllegalArgumentException {
-        throw new UnsupportedOperationException("Not supported yet."); 
-        //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int getNumVertices() {
-        throw new UnsupportedOperationException("Not supported yet."); 
-        //To change body of generated methods, choose Tools | Templates.
+        double x = getCenter().getX() - getRadius() * Math.cos((index * 2 * Math.PI) / getNumEdges());
+        double y = getCenter().getY() - getRadius() * Math.sin((index * 2 * Math.PI) / getNumEdges());
+        return new Vertex2D(x,y);
     }
     
+    @Override
+    public int getNumVertices() {
+        return numEdges;
+    }
+    
+    /**
+     * Triangulate divide polygon on triangles
+     * 
+     * @return array of triangles that divide regular polygon 
+     */
     public Triangle[] triangulate() {
-        throw new UnsupportedOperationException("Not supported yet."); 
-        //To change body of generated methods, choose Tools | Templates.
+        Triangle[] triangles = new Triangle[getNumEdges()];
+        
+        for(int i = 0; i < getNumEdges(); i++) {
+            triangles[i] = new Triangle(center, getVertex(i), getVertex(i + 1));
+        }
+        
+        return triangles;
     }
 }
