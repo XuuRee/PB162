@@ -15,7 +15,7 @@ The maximum number of points for this assignment is **7**.
 - **2 points** for correct implementation (evaluated by your class teacher).
 - **1 points** for clean and elegant implementation (code conventions, minimal code repetition).
 
-In cases **when provided tests do not pass** with submitted solution you can be granted no more than **40 points** (this means that you can be granted **0 points** as well)!
+In cases **when provided tests do not pass** with submitted solution you can be granted no more than **4 points** (this means that you can be granted **0 points** as well)!
 
 ### Preconditions
 To succesfuly implement this assignment you need to know the following
@@ -76,10 +76,7 @@ Create classes for the following ships:
 **Note:** Notice that cruiser are tougher compared to other ships. After consulting the javadocs, you could probably tell what it means. ```REINFORCED``` parts of the ship need to be hit twice before they are destroyed.
 All different states of ship's armor are described in ```cz.munii.fi.pb162.ships.ArmorState```.
 
-All ```Ship``` implementations are expected to have a constructor with following parameters
-```java
-public Ship(int length, int width)
-```
+ ```Ship``` implementations are expected to have a parameterless constructor.
 The actual name of the constructor may (and will) vary and you are free to add any other constructor.
 
 **Hint:** Think about what will be the actual difference between these classes and what aspects of Java can you utilise in order to achieve optimal implementation.

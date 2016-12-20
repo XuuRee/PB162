@@ -5,7 +5,7 @@ package cz.muni.fi.pb162.ships;
  */
 public interface PlayingBoard {
 
-
+    
     /**
      * Place a ship onto playing board facing given direction.
      * If the ship was placed successfully it's latitude and longitude is set.
