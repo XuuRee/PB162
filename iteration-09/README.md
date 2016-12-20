@@ -5,4 +5,4 @@ This project is a set of subsequent assignments used to demonstrate and practice
 
 Iteration-08
 ==========================
-Exercise focus on basic work with collections (map).
+Exercise focus on basic work with files (IO).
