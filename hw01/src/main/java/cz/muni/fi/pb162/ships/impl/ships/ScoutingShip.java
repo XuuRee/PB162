@@ -9,6 +9,7 @@ package cz.muni.fi.pb162.ships.impl.ships;
 import cz.muni.fi.pb162.ships.ArmorState;
 import cz.muni.fi.pb162.ships.Direction;
 import cz.muni.fi.pb162.ships.Ship;
+import java.util.Arrays;
 
 /**
  * Class representing a scouting ship
@@ -30,7 +31,10 @@ public class ScoutingShip implements Ship {
     public ScoutingShip() {
         this.length = 3;
         this.width = 1;
-        this.armor = new ArmorState[][] { {ArmorState.SOUND, ArmorState.SOUND, ArmorState.SOUND} }; 
+        this.armor = new ArmorState[width][length];
+        for(ArmorState[] row : armor) {
+            Arrays.fill(row, ArmorState.SOUND);
+        } 
     }
     
     @Override
@@ -87,17 +91,15 @@ public class ScoutingShip implements Ship {
 
     @Override
     public boolean isDestroyed() {
-        boolean destroyed = true;
-        
         for(int i = 0; i < width; i++) {
             for(int j = 0; j < length; j++) {
                 if(getArmor(i,j) != ArmorState.DESTROYED) {
-                    destroyed = false;
+                    return false;
                 }
             }
         }
         
-        return destroyed;
+        return true;
     }
     
 }

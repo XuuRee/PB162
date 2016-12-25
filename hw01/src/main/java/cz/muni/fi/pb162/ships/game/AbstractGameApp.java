@@ -45,13 +45,6 @@ public abstract class AbstractGameApp {
         boolean run = true;
 
         do {
-            if(game.isEnd()) {
-                System.out.println("Game is over, you won !");
-                game.printShipPlacement();
-                //run = false;
-                break;
-            }
-            
             System.out.print("Insert coordinates: ");
             line = scanner.nextLine();
 
@@ -67,12 +60,18 @@ public abstract class AbstractGameApp {
                     game.printBoard();
             }
 
+            if(game.isEnd()) {
+                System.out.println("Game is over, you won !");
+                game.printShipPlacement();
+                run = false;
+            }
+            
             System.out.println();
         } while (run);
     }
 
     /**
-     * Run the app
+     * Run the application
      */
     public void run() {
         start();

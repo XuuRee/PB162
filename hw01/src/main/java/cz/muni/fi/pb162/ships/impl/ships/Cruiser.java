@@ -9,6 +9,7 @@ package cz.muni.fi.pb162.ships.impl.ships;
 import cz.muni.fi.pb162.ships.ArmorState;
 import cz.muni.fi.pb162.ships.Direction;
 import cz.muni.fi.pb162.ships.Ship;
+import java.util.Arrays;
 
 /**
  * Class representing a cruiser
@@ -30,16 +31,10 @@ public class Cruiser implements Ship {
     public Cruiser() {
         this.length = 5;
         this.width = 2;
-        this.armor = new ArmorState[][] { {ArmorState.REINFORCED, 
-                                           ArmorState.REINFORCED, 
-                                           ArmorState.REINFORCED, 
-                                           ArmorState.REINFORCED, 
-                                           ArmorState.REINFORCED}, 
-                                          {ArmorState.REINFORCED,
-                                           ArmorState.REINFORCED,
-                                           ArmorState.REINFORCED,
-                                           ArmorState.REINFORCED,
-                                           ArmorState.REINFORCED} };  
+        this.armor = new ArmorState[width][length]; 
+        for(ArmorState[] row : armor) {
+            Arrays.fill(row, ArmorState.REINFORCED);
+        }
     }
     
     @Override
@@ -104,17 +99,15 @@ public class Cruiser implements Ship {
 
     @Override
     public boolean isDestroyed() {
-        boolean destroyed = true;
-        
         for(int i = 0; i < width; i++) {
             for(int j = 0; j < length; j++) {
                 if(getArmor(i,j) != ArmorState.DESTROYED) {
-                    destroyed = false;
+                    return false;
                 }
             }
         }
         
-        return destroyed;
+        return true;
     }
     
 }

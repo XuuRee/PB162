@@ -102,7 +102,7 @@ public class Game {
     }
     
     /**
-     * Check if game is over
+     * Check if all ships are destroyed and game is over
      * 
      * @return true if all ships are destroyed, false otherwise 
      */

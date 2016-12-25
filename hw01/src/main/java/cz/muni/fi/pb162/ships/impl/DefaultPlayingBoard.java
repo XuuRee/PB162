@@ -40,13 +40,14 @@ public class DefaultPlayingBoard implements PlayingBoard {
      * @return true if coordinates are right, false otherwise 
      */
     private boolean checkCoordinatesOnBoard(Ship ship) {
-        
         int longitude = ship.getLongitude();
         int latitude = ship.getLatitude();
+        int shipWidth = ship.getWidth();
+        int shipLength = ship.getLength();
         
         switch(ship.getDirection()) {
             case NORTH: 
-                if(latitude + ship.getWidth() - 1 > getWidth() || longitude + ship.getLength() - 1 > getHeight()) {
+                if(latitude + shipWidth - 1 > getWidth() || longitude + shipLength - 1 > getHeight()) {
                     return false;
                 }
                 return true;
@@ -55,7 +56,7 @@ public class DefaultPlayingBoard implements PlayingBoard {
                 if(latitude > getWidth() || longitude > getHeight()) {
                     return false;
                 }
-                if(longitude - ship.getLength() + 1 < 0 || latitude - ship.getWidth() + 1 < 0) {
+                if(longitude - shipLength + 1 < 0 || latitude - shipWidth + 1 < 0) {
                     return false;
                 }
                 return true;
@@ -64,7 +65,7 @@ public class DefaultPlayingBoard implements PlayingBoard {
                 if(longitude > getHeight()) {
                     return false;
                 }
-                if(latitude + ship.getLength() - 1 > getWidth() || longitude - ship.getWidth() + 1 < 0) {
+                if(latitude + shipLength - 1 > getWidth() || longitude - shipWidth + 1 < 0) {
                     return false;
                 }
                 return true;
@@ -73,7 +74,7 @@ public class DefaultPlayingBoard implements PlayingBoard {
                 if(latitude > getWidth()) {
                     return false;
                 }
-                if(longitude + ship.getWidth() - 1 > getHeight() || latitude - ship.getLength() + 1 < 0) {
+                if(longitude + shipWidth - 1 > getHeight() || latitude - shipLength + 1 < 0) {
                     return false;
                 }
                 return true;
@@ -92,11 +93,13 @@ public class DefaultPlayingBoard implements PlayingBoard {
     private boolean overlayingShips(Ship ship) {
         int latitude = ship.getLatitude();
         int longitude = ship.getLongitude();
+        int shipWidth = ship.getWidth();
+        int shipLength = ship.getLength();
         
         switch(ship.getDirection()) {
             case NORTH:
-                for(int i = latitude; i < latitude + ship.getWidth(); i++) {
-                    for(int j = longitude; j < longitude + ship.getLength(); j++) {
+                for(int i = latitude; i < latitude + shipWidth; i++) {
+                    for(int j = longitude; j < longitude + shipLength; j++) {
                         if(board[i][j] instanceof Ship) {
                             return false;
                         }
@@ -105,8 +108,8 @@ public class DefaultPlayingBoard implements PlayingBoard {
                 return true;
             
             case SOUTH:
-                for(int i = latitude; i > latitude - ship.getWidth(); i--) {
-                    for(int j = longitude; j > longitude - ship.getLength(); j--) {
+                for(int i = latitude; i > latitude - shipWidth; i--) {
+                    for(int j = longitude; j > longitude - shipLength; j--) {
                         if(board[i][j] instanceof Ship) {
                             return false;
                         }
@@ -115,8 +118,8 @@ public class DefaultPlayingBoard implements PlayingBoard {
                 return true;
             
             case EAST:
-                for(int i = longitude; i > longitude - ship.getWidth(); i--) {
-                    for(int j = latitude; j < latitude + ship.getLength(); j++) {
+                for(int i = longitude; i > longitude - shipWidth; i--) {
+                    for(int j = latitude; j < latitude + shipLength; j++) {
                         if(board[i][j] instanceof Ship) {
                             return false;
                         }
@@ -125,8 +128,8 @@ public class DefaultPlayingBoard implements PlayingBoard {
                 return true;
             
             case WEST:
-                for(int i = longitude; i < longitude + ship.getWidth(); i++) {
-                    for(int j = latitude; j > latitude - ship.getLength(); j--) {
+                for(int i = longitude; i < longitude + shipWidth; i++) {
+                    for(int j = latitude; j > latitude - shipLength; j--) {
                         if(board[i][j] instanceof Ship) {
                             return false;
                         }
@@ -148,35 +151,37 @@ public class DefaultPlayingBoard implements PlayingBoard {
     private boolean saveCoordinatesOnBoard(Ship ship) {
         int latitude = ship.getLatitude();
         int longitude = ship.getLongitude();
+        int shipWidth = ship.getWidth();
+        int shipLength = ship.getLength();
         
         switch(ship.getDirection()) {
             case NORTH:
-                for(int i = latitude; i < latitude + ship.getWidth(); i++) {
-                    for(int j = longitude; j < longitude + ship.getLength(); j++) {
+                for(int i = latitude; i < latitude + shipWidth; i++) {
+                    for(int j = longitude; j < longitude + shipLength; j++) {
                         board[i][j] = ship;
                     }
                 }
                 return true;
             
             case SOUTH:
-                for(int i = latitude; i > latitude - ship.getWidth(); i--) {
-                    for(int j = longitude; j > longitude - ship.getLength(); j--) {
+                for(int i = latitude; i > latitude - shipWidth; i--) {
+                    for(int j = longitude; j > longitude - shipLength; j--) {
                         board[i][j] = ship;
                     }
                 }
                 return true;
             
             case EAST:
-                for(int i = longitude; i > longitude - ship.getWidth(); i--) {
-                    for(int j = latitude; j < latitude + ship.getLength(); j++) {
+                for(int i = longitude; i > longitude - shipWidth; i--) {
+                    for(int j = latitude; j < latitude + shipLength; j++) {
                         board[i][j] = ship;
                     }
                 }
                 return true;
             
             case WEST:
-                for(int i = longitude; i < longitude + ship.getWidth(); i++) {
-                    for(int j = latitude; j > latitude - ship.getLength(); j--) {
+                for(int i = longitude; i < longitude + shipWidth; i++) {
+                    for(int j = latitude; j > latitude - shipLength; j--) {
                         board[i][j] = ship;
                     }
                 }
@@ -220,13 +225,17 @@ public class DefaultPlayingBoard implements PlayingBoard {
      * @return ship with hit, or null
      */
     private Ship transformCoordinates(Ship ship, int latitude, int longitude) {
+        int shipLatitude = ship.getLatitude();
+        int shipLongitude = ship.getLongitude();
+        int shipWidth = ship.getWidth();
+        int shipLength = ship.getLength();
         int x = 0; 
         
         switch(ship.getDirection()) {
             case NORTH:
-                for(int i = ship.getLatitude(); i < ship.getLatitude() + ship.getWidth(); i++, x++) {
+                for(int i = shipLatitude; i < shipLatitude + shipWidth; i++, x++) {
                     int y = 0;
-                    for(int j = ship.getLongitude(); j < ship.getLongitude() + ship.getLength(); j++, y++) {
+                    for(int j = shipLongitude; j < shipLongitude + shipLength; j++, y++) {
                         if(i == latitude && j == longitude) {
                             ship.hit(x, y);
                         }
@@ -235,9 +244,9 @@ public class DefaultPlayingBoard implements PlayingBoard {
                 break; 
             
             case SOUTH:
-                for(int i = ship.getLatitude(); i > ship.getLatitude() - ship.getWidth(); i--, x++) {
+                for(int i = shipLatitude; i > shipLatitude - shipWidth; i--, x++) {
                     int y = 0;
-                    for(int j = ship.getLongitude(); j > ship.getLongitude() - ship.getLength(); j--, y++) {
+                    for(int j = shipLongitude; j > shipLongitude - shipLength; j--, y++) {
                         if(i == latitude && j == longitude) {
                             ship.hit(x, y);
                         }
@@ -246,9 +255,9 @@ public class DefaultPlayingBoard implements PlayingBoard {
                 break;
                
             case EAST:
-                for(int i = ship.getLongitude(); i > ship.getLongitude() - ship.getWidth(); i--, x++) {
+                for(int i = shipLongitude; i > shipLongitude - shipWidth; i--, x++) {
                     int y = 0;
-                    for(int j = ship.getLatitude(); j < ship.getLatitude() + ship.getLength(); j++, y++) {
+                    for(int j = shipLatitude; j < shipLatitude + shipLength; j++, y++) {
                         if(i == latitude && j == longitude) {
                             ship.hit(x, y);
                         }
@@ -257,9 +266,9 @@ public class DefaultPlayingBoard implements PlayingBoard {
                 break;
             
             case WEST:
-                for(int i = ship.getLongitude(); i < ship.getLongitude() + ship.getWidth(); i++, x++) {
+                for(int i = shipLongitude; i < shipLongitude + shipWidth; i++, x++) {
                     int y = 0;
-                    for(int j = ship.getLatitude(); j > ship.getLatitude() - ship.getLength(); j--, y++) {
+                    for(int j = shipLatitude; j > shipLatitude - shipLength; j--, y++) {
                         if(i == latitude && j == longitude) {
                             ship.hit(x, y);
                         }

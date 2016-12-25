@@ -9,8 +9,8 @@ import cz.muni.fi.pb162.ships.PlayingBoard;
 import cz.muni.fi.pb162.ships.Ship;
 import cz.muni.fi.pb162.ships.game.AbstractGameApp;
 import cz.muni.fi.pb162.ships.game.Game;
-//import cz.muni.fi.pb162.ships.impl.ships.Cruiser;
-//import cz.muni.fi.pb162.ships.impl.ships.Frigate;
+import cz.muni.fi.pb162.ships.impl.ships.Cruiser;
+import cz.muni.fi.pb162.ships.impl.ships.Frigate;
 import cz.muni.fi.pb162.ships.impl.ships.ScoutingShip;
 
 /**
@@ -58,14 +58,13 @@ public class GameApp extends AbstractGameApp {
          Game g = new Game(board);
          
          Ship scoutingShip = new ScoutingShip();
-         //Ship cruiser = new Cruiser();
-         //Ship frigate = new Frigate();
+         Ship cruiser = new Cruiser();
+         Ship frigate = new Frigate();
          
-         g.placeShips(scoutingShip);
-
-         g.printShipPlacement();
+         g.placeShips(scoutingShip, cruiser, frigate);
          
          AbstractGameApp app = new GameApp(g);
+         
          app.run();
      }
     
