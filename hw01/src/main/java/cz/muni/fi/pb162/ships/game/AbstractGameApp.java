@@ -45,6 +45,13 @@ public abstract class AbstractGameApp {
         boolean run = true;
 
         do {
+            if(game.isEnd()) {
+                System.out.println("Game is over, you won !");
+                game.printShipPlacement();
+                //run = false;
+                break;
+            }
+            
             System.out.print("Insert coordinates: ");
             line = scanner.nextLine();
 

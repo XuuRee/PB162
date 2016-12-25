@@ -60,7 +60,7 @@ public class Frigate implements Ship {
             return false;
         }
         
-        return latitude > 0 && longitude > 0; 
+        return latitude >= 0 && longitude >= 0; 
     }
 
     @Override

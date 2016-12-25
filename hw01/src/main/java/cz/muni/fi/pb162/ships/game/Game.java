@@ -100,4 +100,20 @@ public class Game {
             }
         }
     }
+    
+    /**
+     * Check if game is over
+     * 
+     * @return true if all ships are destroyed, false otherwise 
+     */
+    public boolean isEnd() {
+        for(Ship element : placedShips) {
+            if(!element.isDestroyed()) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    
 }

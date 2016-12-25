@@ -56,7 +56,7 @@ public class ScoutingShip implements Ship {
             return false;
         }
         
-        return latitude > 0 && longitude > 0; 
+        return latitude >= 0 && longitude >= 0; 
     }
 
     @Override
@@ -81,17 +81,6 @@ public class ScoutingShip implements Ship {
 
     @Override
     public ArmorState hit(int x, int y) {
-       /*
-        for(int i = 0; i < width; i++) {
-            for(int j = 0; j < length; j++) {
-                if(i == x && j == y) {
-                    armor[x][y] = ArmorState.DESTROYED;
-                }
-            }
-        }
-        
-        return armor[x][y];
-        */
         armor[x][y] = ArmorState.DESTROYED;        
         return armor[x][y];
     }

@@ -3,9 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package cz.muni.fi.pb162.ships.impl.ships;
 
+import cz.muni.fi.pb162.ships.Direction;
 import cz.muni.fi.pb162.ships.Ship;
+import cz.muni.fi.pb162.ships.impl.DefaultPlayingBoard;
+import cz.muni.fi.pb162.ships.PlayingBoard;
 
 /**
  *
@@ -14,53 +18,26 @@ import cz.muni.fi.pb162.ships.Ship;
 public class Demo {
  
     /**
-     * Class demo, plays with objects; 
+     * Class demo, playing with objects; 
      * 
      * @param args String argument
      */
     public static void main(String[] args) {
-        
+        Ship scoutingShip = new ScoutingShip();
         Ship cruiser = new Cruiser();
+        Ship frigate = new Frigate();
         
-        System.out.println("CRUISER SHIP ->");
-        System.out.println(cruiser.getArmor(0, 0));
-        System.out.println(cruiser.getArmor(0, 1));
-        System.out.println(cruiser.getArmor(0, 2));
-        System.out.println(cruiser.getArmor(0, 3));
-        System.out.println(cruiser.getArmor(0, 4));
-        System.out.println(cruiser.getArmor(1, 0));
-        System.out.println(cruiser.getArmor(1, 1));
-        System.out.println(cruiser.getArmor(1, 2));
-        System.out.println(cruiser.getArmor(1, 3));
-        System.out.println(cruiser.getArmor(1, 4));
-        System.out.println(cruiser.isDestroyed());
-        System.out.println(cruiser.hit(0,1));
-        /*
-        System.out.println("SCOUTING SHIP ->");
-        System.out.println(scoutingShip.getArmor(0, 0));
-        System.out.println(scoutingShip.getArmor(0, 1));
-        System.out.println(scoutingShip.getArmor(0, 2));
-        System.out.println(scoutingShip.isDestroyed());
-        scoutingShip.hit(0,1);
-        System.out.println(scoutingShip.getArmor(0, 0));
-        System.out.println(scoutingShip.getArmor(0, 1));
-        System.out.println(scoutingShip.getArmor(0, 2));
-        */
-        /*
-        System.out.println("FRIGATE ->");
-        System.out.println(frigate.isDestroyed());
-        frigate.hit(0,1);
-        frigate.hit(0,0);
-        frigate.hit(0,2);
-        frigate.hit(0,3);
-        frigate.hit(0,4);
-        System.out.println(frigate.isDestroyed());
-        System.out.println(frigate.getArmor(0, 0));
-        System.out.println(frigate.getArmor(0, 1));
-        System.out.println(frigate.getArmor(0, 2));
-        System.out.println(frigate.getArmor(0, 3));
-        System.out.println(frigate.getArmor(0, 4));
-        */
+        PlayingBoard board = new DefaultPlayingBoard(9,9);
+        
+        System.out.println(board.place(cruiser, 0, 0, Direction.NORTH));
+        System.out.println(board.place(frigate, 8, 0, Direction.NORTH));
+        System.out.println(board.place(scoutingShip, 0, 7, Direction.EAST));
+        
+        System.out.println(board.get(0, 0).getArmor(0, 0));
+        
+        board.hit(0, 0);
+        
+        System.out.println(board.get(0, 0).getArmor(0, 0));
     }
     
 }
